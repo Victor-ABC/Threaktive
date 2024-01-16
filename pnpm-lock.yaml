@@ -31,9 +31,6 @@ devDependencies:
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.19.0
     version: 6.19.0(@typescript-eslint/parser@6.19.0)(eslint@8.56.0)(typescript@4.9.3)
-  '@typescript-eslint/parser':
-    specifier: ^6.19.0
-    version: 6.19.0(eslint@8.56.0)(typescript@4.9.3)
   eslint:
     specifier: ^8.56.0
     version: 8.56.0
