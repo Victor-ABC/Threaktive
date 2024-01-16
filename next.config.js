@@ -7,4 +7,4 @@ const withNextra = require("nextra")({
 })
 
 // eslint-disable-next-line no-undef
-export default withNextra({})
+module.exports = withNextra({})
