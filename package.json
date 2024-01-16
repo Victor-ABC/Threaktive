@@ -1,7 +1,7 @@
 {
-  "name": "nextra-docs-template",
+  "name": "threaktive",
   "version": "0.0.1",
-  "description": "Nextra docs template",
+  "description": "Result of the research- and development project 'Threaktive' at the FH Münster University of Applied Sciences",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shuding/nextra-docs-template.git"
+    "url": "git+https://github.com/Aleeexx/Threaktive.git"
   },
-  "author": "Shu Ding <g@shud.in>",
+  "author": "Alexander Euler <ae643848@fh-muenster.de>, Carla Hugenroth <ch123456@fh-muenster.de>, Robin Wiehle <rw123456@fh-muenster.de>, Victor Corbet <vc123456@fh-muenster.de>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shuding/nextra-docs-template/issues"
+    "url": "https://github.com/Aleeexx/Threaktive/issues"
   },
-  "homepage": "https://github.com/shuding/nextra-docs-template#readme",
+  "homepage": "https://github.com/Aleeexx/Threaktive#readme",
   "dependencies": {
     "next": "^13.0.6",
     "nextra": "latest",
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@types/node": "18.11.10",
+    "@types/react": "^18.2.48",
     "eslint-plugin-mdx": "^3.1.5",
     "typescript": "^4.9.3"
   }
