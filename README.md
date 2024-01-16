@@ -1,22 +1,19 @@
-# Nextra Docs Template 
+# ThreaKtive
 
-This is a template for creating documentation with [Nextra](https://nextra.site).
+This is a kind of documentation of the research and development project that was created as part of the Master's program in Business Informatics at the FH Münster University of Applied Sciences. Get started and gather a deeper insight into programming java with either virtual threads (Project Loom) or reactive programming (Project Reactor) with same minimalistic examples as well as real world applications.
+For now, the only available language for this website is german.
 
-[**Live Demo →**](https://nextra-docs-template.vercel.app)
+[**Got to site →**](https://threaktive.vercel.app)
 
-[![](.github/screenshot.png)](https://nextra-docs-template.vercel.app)
-
-## Quick Start
-
-Click the button to clone this repository and deploy it on Vercel:
-
-[![](https://vercel.com/button)](https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2Fshuding%2Fnextra-docs-template&showOptionalTeamCreation=false)
+[![](.github/wip-screenshot.jpg)](https://threaktive.vercel.app)
 
 ## Local Development
 
 First, run `pnpm i` to install the dependencies.
 
 Then, run `pnpm dev` to start the development server and visit localhost:3000.
+
+If you have not yet used pnpm, you can install it e.g. via `npm install -g pnpm`.
 
 ## License
 
