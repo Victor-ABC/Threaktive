@@ -1,15 +1,13 @@
 {
-  "index": "Introduction",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
-  "about": {
-    "title": "About",
+  "index": "Home",
+  "made-by-person": "Made by some Person",
+  "made-by-anonym": "Made by anonymous Person",
+  "virtual-threads": {
+    "title": "Virtual Threads",
     "type": "page"
   },
-  "contact": {
-    "title": "Contact ↗",
-    "type": "page",
-    "href": "https://twitter.com/shuding_",
-    "newWindow": true
+  "reactive-programming": {
+    "title": "Reaktive Programmierung",
+    "type": "page"
   }
 }
