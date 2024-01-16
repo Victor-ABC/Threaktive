@@ -12,158 +12,129 @@ const config: DocsThemeConfig = {
   banner: {
     key: "still-wip",
     text: (
-      <a href="https://github.com/Aleeexx/Threaktive" target="_blank">
+      <a href="https://github.com/Aleeexx/Threaktive" target="_blank" rel="noreferrer">
         🧑🏽‍💻 This site is still wip.
       </a>
     ),
   },
   footer: {
     text: () => {
-      const { locale } = useRouter()
-      switch (locale) {
-        case "de":
-        default:
-          return (
-            <p>
-              Von{" "}
-              <a
-                className="nx-font-medium nx-text-gray-500 hover:nx-text-gray-900 dark:nx-text-gray-400 dark:hover:nx-text-gray-100 contrast-more:nx-text-gray-800 contrast-more:dark:nx-text-gray-50"
-                href="https://github.com/Aleeexx"
-                target="_blank"
-              >
-                Alexander Euler
-              </a>
-              ,{" "}
-              <a
-                className="nx-font-medium nx-text-gray-500 hover:nx-text-gray-900 dark:nx-text-gray-400 dark:hover:nx-text-gray-100 contrast-more:nx-text-gray-800 contrast-more:dark:nx-text-gray-50"
-                href="https://github.com/Aleeexx"
-                target="_blank"
-              >
-                Carla Hugenroth
-              </a>
-              ,{" "}
-              <a
-                className="nx-font-medium nx-text-gray-500 hover:nx-text-gray-900 dark:nx-text-gray-400 dark:hover:nx-text-gray-100 contrast-more:nx-text-gray-800 contrast-more:dark:nx-text-gray-50"
-                href="https://github.com/RobinWi9"
-                target="_blank"
-              >
-                Robin Wiehle
-              </a>{" "}
-              und{" "}
-              <a
-                className="nx-font-medium nx-text-gray-500 hover:nx-text-gray-900 dark:nx-text-gray-400 dark:hover:nx-text-gray-100 contrast-more:nx-text-gray-800 contrast-more:dark:nx-text-gray-50"
-                href="https://github.com/VictorCorbet"
-                target="_blank"
-              >
-                Victor Paul Corbet
-              </a>
-            </p>
-          )
-      }
+      return (
+        <p>
+          Von{" "}
+          <a
+            className="nx-font-medium nx-text-gray-500 hover:nx-text-gray-900 dark:nx-text-gray-400 dark:hover:nx-text-gray-100 contrast-more:nx-text-gray-800 contrast-more:dark:nx-text-gray-50"
+            href="https://github.com/Aleeexx"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Alexander Euler
+          </a>
+          ,{" "}
+          <a
+            className="nx-font-medium nx-text-gray-500 hover:nx-text-gray-900 dark:nx-text-gray-400 dark:hover:nx-text-gray-100 contrast-more:nx-text-gray-800 contrast-more:dark:nx-text-gray-50"
+            href="https://github.com/Aleeexx"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Carla Hugenroth
+          </a>
+          ,{" "}
+          <a
+            className="nx-font-medium nx-text-gray-500 hover:nx-text-gray-900 dark:nx-text-gray-400 dark:hover:nx-text-gray-100 contrast-more:nx-text-gray-800 contrast-more:dark:nx-text-gray-50"
+            href="https://github.com/RobinWi9"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Robin Wiehle
+          </a>{" "}
+          und{" "}
+          <a
+            className="nx-font-medium nx-text-gray-500 hover:nx-text-gray-900 dark:nx-text-gray-400 dark:hover:nx-text-gray-100 contrast-more:nx-text-gray-800 contrast-more:dark:nx-text-gray-50"
+            href="https://github.com/VictorCorbet"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Victor Paul Corbet
+          </a>
+        </p>
+      )
     },
   },
   editLink: {
-    text: () => {
-      const { locale } = useRouter()
-      switch (locale) {
-        case "de":
-        default:
-          return <p>Bearbeite diese Seite auf GitHub →</p>
-      }
-    },
+    text: () => <p>Bearbeite diese Seite auf GitHub →</p>,
   },
   feedback: {
-    content: () => {
-      const { locale } = useRouter()
-      switch (locale) {
-        case "de":
-        default:
-          return <p>Frage? Gib uns Feedback →</p>
-      }
-    },
+    content: () => <p>Frage? Gib uns Feedback →</p>,
   },
   toc: {
-    title: () => {
-      const { locale } = useRouter()
-      switch (locale) {
-        case "de":
-        default:
-          return <span>Auf dieser Seite</span>
-      }
-    },
+    title: () => <span>Auf dieser Seite</span>,
   },
   search: {
-    placeholder: () => {
-      const { locale } = useRouter()
-      switch (locale) {
-        case "de":
-        default:
-          return "Suchen..."
-      }
-    },
+    placeholder: () => "Suchen...",
   },
   gitTimestamp: (args) => {
-    const { locale } = useRouter()
+    console.log("getTimestamp", args)
     const { timestamp } = args
     const { authorName, authorGithubName } = useConfig()?.frontMatter ?? {}
+
+    console.log("authorName", authorName)
+    console.log("authorGithubName", authorGithubName)
+
     const isDarkMode =
       globalThis?.document?.body?.parentElement?.style?.colorScheme === "dark" ?? false
 
-    switch (locale) {
-      case "de":
-      default:
-        return (
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "100%",
+          alignItems: "flex-end",
+        }}
+      >
+        {authorName && authorGithubName && (
           <div
             style={{
               display: "flex",
-              justifyContent: "space-between",
-              width: "100%",
-              alignItems: "flex-end",
+              flexDirection: "row",
+              marginTop: "1em",
+              alignItems: "center",
             }}
           >
-            {authorName && authorGithubName && (
-              <div
+            <Link href={`https://github.com/${authorGithubName}`}>
+              <img
+                alt={authorName}
+                style={{ borderRadius: "50%", height: "3em", aspectRatio: "1 / 1" }}
+                src={`https://github.com/${authorGithubName}.png`}
+              />
+            </Link>
+            <div style={{ display: "flex", flexDirection: "column", marginLeft: "1em" }}>
+              <p
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  marginTop: "1em",
-                  alignItems: "center",
+                  color: "rgba(156,163,175,var(--tw-text-opacity))",
+                  fontSize: ".875rem",
+                  textAlign: "left",
                 }}
               >
-                <Link href={`https://github.com/${authorGithubName}`}>
-                  <img
-                    alt={authorName}
-                    style={{ borderRadius: "50%", height: "3em", aspectRatio: "1 / 1" }}
-                    src={`https://github.com/${authorGithubName}.png`}
-                  />
-                </Link>
-                <div style={{ display: "flex", flexDirection: "column", marginLeft: "1em" }}>
-                  <p
-                    style={{
-                      color: "rgba(156,163,175,var(--tw-text-opacity))",
-                      fontSize: ".875rem",
-                      textAlign: "left",
-                    }}
-                  >
-                    Autor
-                  </p>
-                  <Link
-                    href={`https://github.com/${authorGithubName}`}
-                    style={{ fontSize: "1.2em" }}
-                    className="nx-font-medium nx-text-gray-500 hover:nx-text-gray-900 dark:nx-text-gray-400 dark:hover:nx-text-gray-100 contrast-more:nx-text-gray-800 contrast-more:dark:nx-text-gray-50"
-                  >
-                    {authorName}
-                  </Link>
-                </div>
-              </div>
-            )}
-            <p>
-              Zuletzt aktualisiert am{" "}
-              {new Intl.DateTimeFormat("de", { dateStyle: "long" }).format(timestamp)}
-            </p>
+                Autor
+              </p>
+              <Link
+                href={`https://github.com/${authorGithubName}`}
+                style={{ fontSize: "1.2em" }}
+                className="nx-font-medium nx-text-gray-500 hover:nx-text-gray-900 dark:nx-text-gray-400 dark:hover:nx-text-gray-100 contrast-more:nx-text-gray-800 contrast-more:dark:nx-text-gray-50"
+              >
+                {authorName}
+              </Link>
+            </div>
           </div>
-        )
-    }
+        )}
+        <p>
+          Zuletzt aktualisiert am{" "}
+          {new Intl.DateTimeFormat("de", { dateStyle: "long" }).format(timestamp)}
+        </p>
+      </div>
+    )
   },
   head: () => {
     return (
@@ -178,7 +149,6 @@ const config: DocsThemeConfig = {
       </>
     )
   },
-  i18n: [{ locale: "de", text: "Deutsch" }],
 }
 
 export default config
