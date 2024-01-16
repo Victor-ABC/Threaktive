@@ -12,7 +12,7 @@ const config: DocsThemeConfig = {
   banner: {
     key: "still-wip",
     text: (
-      <a href="https://nextra.site" target="_blank">
+      <a href="https://github.com/Aleeexx/Threaktive" target="_blank">
         🧑🏽‍💻 This site is still wip.
       </a>
     ),
@@ -39,23 +39,23 @@ const config: DocsThemeConfig = {
                 href="https://github.com/Aleeexx"
                 target="_blank"
               >
-                Victor Paul Corbet
+                Carla Hugenroth
               </a>
               ,{" "}
               <a
                 className="nx-font-medium nx-text-gray-500 hover:nx-text-gray-900 dark:nx-text-gray-400 dark:hover:nx-text-gray-100 contrast-more:nx-text-gray-800 contrast-more:dark:nx-text-gray-50"
-                href="https://github.com/Aleeexx"
+                href="https://github.com/RobinWi9"
                 target="_blank"
               >
-                Carla Hugenroth
+                Robin Wiehle
               </a>{" "}
               und{" "}
               <a
                 className="nx-font-medium nx-text-gray-500 hover:nx-text-gray-900 dark:nx-text-gray-400 dark:hover:nx-text-gray-100 contrast-more:nx-text-gray-800 contrast-more:dark:nx-text-gray-50"
-                href="https://github.com/Aleeexx"
+                href="https://github.com/VictorCorbet"
                 target="_blank"
               >
-                Robin Wiehle
+                Victor Paul Corbet
               </a>
             </p>
           )
@@ -105,12 +105,10 @@ const config: DocsThemeConfig = {
   gitTimestamp: (args) => {
     const { locale } = useRouter()
     const { timestamp } = args
-    console.log("TIMESTAMP", timestamp)
     const { authorName, authorGithubName } = useConfig()?.frontMatter ?? {}
-    console.log("authorName", authorName)
-    console.log("authorGithubName", authorGithubName)
     const isDarkMode =
       globalThis?.document?.body?.parentElement?.style?.colorScheme === "dark" ?? false
+
     switch (locale) {
       case "de":
       default:
