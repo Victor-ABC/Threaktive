@@ -1,7 +1,10 @@
 {
   "index": "Home",
-  "made-by-person": "Made by some Person",
-  "made-by-anonym": "Made by anonymous Person",
+  "made-by-alex": "Made by Alex",
+  "made-by-carla": "Made by Carla",
+  "made-by-robin": "Made by Robin",
+  "made-by-victor": "Made by Victor",
+  "made-by-anonym": "Made by anonymous",
   "virtual-threads": {
     "title": "Virtual Threads",
     "type": "page"
