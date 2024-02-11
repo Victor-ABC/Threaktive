@@ -1,0 +1,9 @@
+.word-type {
+    display: flex;
+    gap: 16px;
+    margin: 16px 0 8px;
+}
+
+.description {
+    opacity: .75;
+}

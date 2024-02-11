@@ -1,6 +1,5 @@
 import React from "react"
 import { DocsThemeConfig, useConfig } from "nextra-theme-docs"
-import { useRouter } from "next/router"
 import Link from "next/link"
 
 const config: DocsThemeConfig = {
@@ -33,7 +32,7 @@ const config: DocsThemeConfig = {
           ,{" "}
           <a
             className="nx-font-medium nx-text-gray-500 hover:nx-text-gray-900 dark:nx-text-gray-400 dark:hover:nx-text-gray-100 contrast-more:nx-text-gray-800 contrast-more:dark:nx-text-gray-50"
-            href="https://github.com/Aleeexx"
+            href="https://github.com/hrothC"
             target="_blank"
             rel="noreferrer"
           >

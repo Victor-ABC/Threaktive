@@ -1,10 +1,14 @@
 # Virtual Threads
 ## Project Loom
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
-
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. 
-
-Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. 
-
-Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. 
+Die Einführung von Virtual Threads ist Teil vom "Project Loom" und wurde offiziell mit Java 21 herausgebracht und eingeführt. 
+Es ist eine sehr große und bedeutsame Erneuerung. Virtual Threads bieten eine einfachere und effizientere Möglichkeit, 
+mit nebenläufigen Programmierparadigmen umzugehen. Bei dem Model „Request-per-Threads“ kommt es bei vielen Anfragen mit 
+blockierenden Aufrufen zu einem Platform Thread Problem, diese sind schwergewichtet und es können nicht beliebig viele erzeugt werden. 
+Diese Problematik konnte in der Vergangenheit mit der reaktiven Programmierung mithilfe von Frameworks gelöst werden. 
+Da bei diesem Programmierparadigma nicht blockierend gewartet wird. Auf dieser Website sind unsere Erfahrungsberichte 
+mit einer Java Backend Umstellung auf eine reaktive Version. Kurz zusammengefasst kann gesagt werden, es ist ein sehr 
+großer Aufwand und es müssen die Entwickler mit passendem Knowhow vorhanden sein. Zudem werden die Lesbarkeit und das 
+Debugging deutlich schwieriger und komplexer. Die genauen Informationen von dem Erfahrungsbericht können ### hier: Link ### eingesehen werden.
+Aus diesem Grund wurden viele Java Backend Anwendungen nicht auf eine reaktive Version umgestellt. 
+Mit der Einführung von virtuellen Threads wurde eine nicht blockierende Anwendung zu integrieren deutlich einfacher (Link zur Aktivierung). Es können deutlich mehr viele Threads als Platform Threads erzeugt und verwaltet werden. Ein wichtiger Ansatz der virtuellen Threads ist das spezielle Objekt „Continuation“, dieses Schlüsselkonzept wird im nächsten Kapitel näher betrachtet.

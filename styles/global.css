@@ -1,0 +1,21 @@
+a {
+    overflow-wrap: anywhere;
+}
+
+p {
+    text-align: justify;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.box-center {
+    margin: 16px auto;
+    max-width: 100%;
+}
+
+.source {
+    font-size: 0.8em;
+    opacity: .75;
+}
