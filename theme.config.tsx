@@ -72,13 +72,11 @@ const config: DocsThemeConfig = {
   search: {
     placeholder: () => "Suchen...",
   },
+  /** If this does not work, you may need to commit new files first, as otherwise the timestamp is missing */
   gitTimestamp: (args) => {
     console.log("getTimestamp", args)
     const { timestamp } = args
     const { authorName, authorGithubName } = useConfig()?.frontMatter ?? {}
-
-    console.log("authorName", authorName)
-    console.log("authorGithubName", authorGithubName)
 
     const isDarkMode =
       globalThis?.document?.body?.parentElement?.style?.colorScheme === "dark" ?? false

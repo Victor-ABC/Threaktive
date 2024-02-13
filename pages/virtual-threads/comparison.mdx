@@ -1,0 +1,97 @@
+import Image from "next/image"
+
+# Vergleich: Virtual Threads vs Platform Threads
+
+In diesem Kapitel werden die Platform Threads mit den virtuellen Threads verglichen,
+wo die Unterschiede und dementsprechend die Vor- und Nachteile dieser beiden Verfahren liegen.
+
+## Allgemein
+
+Für einen Java-Platform Thread wird ein Betriebssystem Thread verwendet, dass Scheduling wird
+vom Betriebssystem durchgeführt. Die Zuordnung zwischen dem Platform Threads und dem Betriebssystem
+Thread besteht über die gesamte Lebensdauer des Platform Threads. Ein Betriebssystem Thread ist
+nicht leichtgewichtet und ist durch den Arbeitsspeicher in der Anzahl limitiert. Die Startzeit
+liegt bei ca. 1ms und der Aufruf wird per Systemaufruf ans Betriebssystem adressiert. Die maximale
+Größe des Stacks in der Default-Einstellung liegt bei 2 MB pro Betriebssystem Thread. Der Kontextwechsel
+ist der Vorgang, bei dem die Bearbeitung des aktuellen Threads unterbrochen wird und zu einem anderen
+Thread zur Bearbeitung gewechselt ist. Diese Zeit liegt ca. bei 100μs. In der Abbildung x ist das „Mapping“
+der Platform Threads zu den Betriebssystem Threads zu sehen.
+
+<div className="box-center" style={{ width: "430px", height: "calc(343px + 20px)" }}>
+  <Image
+    sizes="100vw"
+    style={{
+        width: '100%',
+        height: 'auto',
+      }}
+    width={430}
+    height={475}
+    src="/images/thread_mapping.png"
+    alt="Mapping: Platform Threads zu Betriebssystem Threads"
+
+/>
+
+  <span className="source text-center">Abbildung X - Quelle: Eigene Anfertigung</span>
+</div>
+
+Bei den virtuellen Threads ist das „Mapping“ geändert worden, um zeitliche Vorteile im Durchsatz
+generieren zu können. Ein virtueller Thread wird auf dem Platform Thread gemappt (mounting),
+dieser wird dann Carrier Thread genannt. Die Anzahl der Platform Threads ist durch die Anzahl der
+Kerne der CPU vorgegeben. Das genaue mounting bzw. unmounting wird hier erklärt: Link. Die JVM
+verwaltet das mouting bzw. unmouting der virtuellen Threads, anders als bei den Platform Threads,
+das Scheduling wird vom Betriebssystem übernommen. Die virtuellen Threads sind sehr leichtgewichtet
+und es können sehr viele gestartet werden (über 1.000.000 – liegt an der Hardware), deshalb wird pro
+Aufgabe ein neuer virtueller Thread erstellt. Ein Virtual Thread ist um mehr als das 1000 fache
+leichtgewichtiger als ein Platform Thread. Das Mapping der virtuellen Threads ist in Abbildung x zu sehen.
+
+<div className="box-center" style={{ width: "430px", height: "calc(251px + 20px)" }}>
+  <Image
+    sizes="100vw"
+    style={{
+        width: '100%',
+        height: 'auto',
+      }}
+    width={430}
+    height={475}
+    src="/images/virtual_thread_mapping.png"
+    alt="Mapping: Platform Threads zu Betriebssystem Threads"
+
+/>
+
+  <span className="source text-center">Abbildung X - Quelle: Eigene Anfertigung</span>
+</div>
+
+## Vor- und Nachteile
+
+Die virtuellen Threads sind keine schnelleren Threads, wenn diese mit dem normalen Platform Threads
+verglichen werden. Die virtuellen Threads haben in der Skalierung ihren großen Vorteil, wenn eine Anwendung
+einen höheren Durchsatz erreichen möchte. Der Vorteil liegt bei den Anwendungen die viele blockierende
+Aufrufe wie z.B. HTTP Request oder Datenbankzugriffe haben. Das liegt daran, dass Platform Threads bei
+der Anzahl begrenzt sind und bei einem blockierenden Zugriff auf die Antwort warten und in dieser Zeit
+selbst warten und keine andere Aufgabe ausführen können. Dieser wird zwar von der CPU-Rechenzeit gelöst,
+wartet aber auf deren Antwort. Die leichtgewichtigen Threads werden pro Aufgabe erstellt und können somit
+parallel diese Wartezeit abwarten. Der virtuelle Thread wird in dieser Zeit in die Queue „unmounted busy“
+gesteckt, bis der blockierende Aufruf eine Antwort zurückgibt. Dies kann an einem einfachen Rechenbeispiel
+gut erklärt werden.
+
+### Rechenbeispiel
+
+#### Annahmen
+
+- 50.000 Operationen
+- 1 Sekunde blockierender Aufruf (Datenbankzugriff)
+- Executor Pool Größe mit 1.000 Platform Threads
+
+#### Berechnung
+
+Die Formel der Rechnung sieht folgend aus:
+
+`Operationen / Threads = x Sekunden`
+
+Die Berechnung der Platform Threads mit dem Executor würde ca. 50 Sekunden dauern, da dieser 50x mal die Wartezeit der Datenbankzugriffe abwarten muss:
+
+`50.000 Operationen / 1.000 Threads = 50 Sekunden`
+
+Die Berechnung der virtuellen Threads würde ca. über eine Sekunde dauern, da 50.000 virtuelle Threads gestartet werden, die die Wartezeit parallel abwarten. Die genaue Zeit ist pro Hardware unterschiedlich, da diese gestartet werden müssen und das mounting bzw. unmounting:
+
+`50.000 Operationen / (50.000 virtuelle Threads) = 50 Sekunden`

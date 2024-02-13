@@ -11,8 +11,12 @@
     "title": "Reaktive Programmierung",
     "type": "page"
   },
-  "example-pages": {
-    "title": "Beispiel-Seiten",
+  "analysis": {
+    "title": "Messungen",
+    "type": "page"
+  },
+  "code-examples": {
+    "title": "Code Beispiele",
     "type": "page"
   }
 }

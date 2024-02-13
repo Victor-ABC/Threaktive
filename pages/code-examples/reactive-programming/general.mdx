@@ -1,0 +1,56 @@
+# Allgemein
+
+Die reaktive und die herkömmliche, weiterverbreitete imperative Programmierung folgen zwei verschiedenen Paradigmen:
+Im Paradigma der imperativen Programmierung erfolgt die Ausführung von Anweisungen in sequenzieller Abfolge.
+Durch die Anwendung von Schleifen und bedingten Strukturen wird der programmierte Ablauf gesteuert.
+Diese Methodik zeichnet sich durch eine fokussierte Behandlung des Zustands aus, der durch aufeinanderfolgende
+Anweisungen modifiziert wird. Blockierende Operationen, bei denen eine Anweisung abgeschlossen wird,
+bevor die nächste beginnt, sind charakteristisch für diesen Ansatz.
+Konträr dazu reagiert die programmatische Umsetzung im reaktiven Stil auf Ereignisse und Zustandsveränderungen.
+Die reaktive Vorgehensweise zeichnet sich durch ihre Asynchronität und Nicht-Blockierung aus, wodurch eine effiziente
+Ressourcennutzung ermöglicht wird. Die Verarbeitung von Datenströmen erfolgt mithilfe von Streams und Observables,
+wobei der Fokus auf dem Datenfluss und der Transformation von Daten liegt.
+
+## Minimalbeispiel
+
+Ein exemplarisches Szenario zur Verdeutlichung der Unterschiede zwischen der imperativen und
+reaktiven Umsetzung könnte die Verarbeitung von Benutzereingaben sein. In einer imperativen Realisierung
+könnte eine Klasse namens UserProcessor mittels blockierender Operationen eine Liste von Benutzern
+aus einer Datenbank abrufen und anschließend sequenziell filtern.
+
+```java
+public class UserProcessor {
+    public List<User> processUsers() {
+        // Blocking DB call
+        List<User> userList = Database.getUsers();
+        List<User> filteredUsers = new ArrayList<>();
+
+        for (User user : userList) {
+            if (user.isActive()) {
+                filteredUsers.add(user);
+            }
+        }
+
+        return filteredUsers;
+    }
+}
+```
+
+Hingegen würde eine reaktive Implementierung desselben Szenarios auf nicht-blockierende Aufrufe setzen,
+um einen Datenstrom von Benutzern zu erhalten, dem dann im vorliegenden Beispiel reaktiv
+z.B. eine Filteroperation zugeführt wird.
+
+```java
+public class ReactiveUserProcessor {
+    public Flux<User> processUsers () {
+        // Non-blocking DB call
+        return Database.getUsers()
+            .filter(User::isActive);
+    }
+}
+```
+
+Anstatt sequentiell einzelne Zustände zu verändern, können in der reaktiven Programmierung Datenströme
+mit Operatoren erweitert werden, um diese hinsichtlich eines Ziels zu verändern, effizient zu verarbeiten etc.
+Hierfür kann häufig ein frühes return-Statement in reaktiven Quellcode gefunden werden, welches einen Datenstrom
+häufig in Kombination mit diversen Operatoren zurückgibt.

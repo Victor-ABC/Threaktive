@@ -1,0 +1,85 @@
+## Refaktorisierung von imperativem Code
+
+Im Zuge der Messungen wurde das oben genannte Praxisbeispiel, welches im imperativen Paradigma
+sequentiell entwickelt wurde, einer Refaktorisierung unterzogen, um dieselbe Logik mit Hilfe
+des reaktiven Paradigmas zu implementieren. Dies kann an folgendem Beispiel nachvollzogen werden:
+Eine Methode `getShoppingList` – aus einem Microservice des oben genannten größeren Beispiels –
+welche eine E-Mail-Adresse als Parameter erhält und anhand dessen die zugehörige ShoppingList
+in der Datenbank sucht und anschließend zurückgeben soll.
+
+```java
+public ShoppingList getShoppingList(String userEmail) {
+    LOG.info("Execute getShoppingList({}).", userEmail);
+    User user = userRepository.findByEmail(userEmail);
+    if (user == null) {
+        LOG.error("Getting shoppingList failed. User {} not found.", userEmail);
+        throw new ResourceNotFoundException("Requested User is not in DB");
+    }
+    Optional<ShoppingList> shoppingListOptional = shoppingListRepository.findOneByUserId(user.getId());
+    if (shoppingListOptional.isEmpty()) {
+        LOG.error("Getting shoppingList failed. ShoppingList for user {} not found.", userEmail);
+        throw new ResourceNotFoundException("Requested ShoppingList is not in DB");
+    }
+    ShoppingList shoppingList = shoppingListOptional.get();
+    LOG.info("Getting ShoppingList successful with ID {}", shoppingList.getId());
+    return shoppingList;
+}
+```
+
+In der Anfangsphase der Methode erfolgt ein blockierender Zugriff auf die Datenbank, mit dem Ziel,
+anhand der zur Verfügung gestellten E-Mail-Adresse eine Datensatzreihe der `User`-Entität
+in der Datenbank zu lokalisieren. Nachdem der Datenbankzugriff zu einer Instanz der `User`-Klasse
+aufzulösen scheint, erfolgt eine Überprüfung, ob tatsächlich eine Datensatzreihe gefunden werden konnte.
+Im Falle einer nicht auffindbaren Datensatzreihe wird eine Protokollierung des Fehlers initiiert,
+gefolgt von der Auslösung einer `ResourceNotFoundException`.
+Im Falle des Vorhandenseins einer `User`-Instanz wird daraufhin der Versuch unternommen,
+anhand der ID des Users eine Datensatzreihe der `ShoppingList`-Entität in der Datenbank aufzufinden.
+In Analogie zur zuvor beleuchteten Logik bezüglich des Users erfolgt eine Überprüfung,
+ob eine mit dem Benutzer verknüpfte `ShoppingList` existiert. Falls dem nicht so ist, wird ebenfalls
+ein `Log`-Eintrag generiert, und erneut eine `ResourceNotFoundException` ausgelöst. Im gegenteiligen
+Szenario wird die `ShoppingList` abschließend von der Methode zurückgegeben.
+
+```java
+public Mono<ShoppingList> getShoppingList(String userEmail) {
+    LOG.info("Execute getShoppingList({}).", userEmail);
+
+    return userRepository.findByEmail(userEmail)
+            .switchIfEmpty(Mono.defer(() -> {
+                LOG.error("Getting shoppingList failed. User {} not found.", userEmail);
+                throw new ResourceNotFoundException("Requested User is not in DB");
+            }))
+            .flatMap(user -> shoppingListRepository.findOneByUserId(user.getId()))
+            .switchIfEmpty(Mono.defer(() -> {
+                LOG.error("Getting shoppingList failed. ShoppingList for user {} not found.", userEmail);
+                throw new ResourceNotFoundException("Requested ShoppingList is not in DB");
+            }))
+            .doOnNext(shoppingList -> LOG.info("Getting ShoppingList successful with ID {}",
+                    shoppingList.getId()));
+}
+```
+
+Die Logik bleibt unverändert, wenn der beleuchtete Quellcode einer Refaktorisierung unterzogen wird;
+jedoch folgt die Implementierung nun dem Paradigma der reaktiven Programmierung.
+Im Kontrast zur ursprünglichen Ausführung hat sich der Rückgabetyp der Methode geändert.
+Zuvor wurde ausschließlich eine Instanz der `ShoppingList` zurückgegeben, was nun zu einem `Mono<T>`
+des Typs ShoppingList (`Mono<ShoppingList>`) transformiert wurde. Zudem kann ein frühes return-Statement
+gefunden werden, welches einen Datenstrom zurückgibt, der dem Rückgabetyp der Methode entsprechen soll.
+Da der Rückgabetyp des anfänglichen, nicht-blockierenden Datenbank-Aufrufs `UserRepository#findByEmail`
+(Rückgabetyp: `Mono<User>`) jedoch nicht mit dem festgelegten Rückgabetyp `Mono<ShoppingList>` übereinstimmt,
+wird dieser Datenstrom mittels weiterer Operatoren transformiert. Vor diesem Schritt wird die Überprüfungslogik
+erneut durch den `switchIfEmpty`-Operator implementiert: Sollten die Datensätze nicht in der Datenbank gefunden werden
+(`UserRepository#findByEmail` gibt `Mono.empty()` statt `null` zurück), werden Fehler protokolliert und
+entsprechende Exceptions ausgelöst.
+
+Falls ein Datensatz des Users aufgefunden wird, kann mithilfe des `flatMap`-Operators das Resultat des vorherigen
+Datenstroms genommen werden, um einen neuen asynchronen `Publisher` zu erstellen, der weitere Werte emittieren kann.
+In diesem Fall handelt es sich um den Aufruf der Methode `ShoppingListRepository#findOneByUserId`
+(Rückgabetyp: `Mono<ShoppingList>`), um die Datensatzreihe der ShoppingList-Entität zu lokalisieren,
+die mit der bereitgestellten ID des Users verknüpft ist. Zu diesem Zeitpunkt signalisiert die integrierte
+Entwicklungsumgebung (IDE) erstmals, dass keine Typ-Fehler existieren. Der Datenstrom entspricht nun
+exakt dem vorgegebenen Rückgabetyp der Methode.
+
+Mittels des `doOnNext`-Operators können synchron zusätzliche Funktionen aufgerufen werden,
+die mit den bisherigen Ergebnissen interagieren können (aufgrund der Verwendung von `Mono` sind dies 0 oder 1 Ergebnisse).
+Im Gegensatz zu anderen Operatoren wie `flatMap`, `map`, `filter` und zahlreichen weiteren besteht bei `doOnNext`
+nicht die Möglichkeit, einen Wert im Datenstrom weiterzureichen.

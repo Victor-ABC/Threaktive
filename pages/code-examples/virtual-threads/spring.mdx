@@ -1,0 +1,68 @@
+---
+authorName: Alexander Euler
+authorGithubName: aleeexx
+---
+
+## Spring Boot
+
+### Vor Version 3.2 [^1]
+
+Um Virtual Threads vor Spring Boot 3.2 zu aktivieren, muss die Main-Klasse der Anwendung
+(Enthält Aufruf von `SpringApplication#run` [^2]) angepasst werden. Hierfür werden zwei Methodenaufrufe benötigt.
+
+```java
+@SpringBootApplication
+public class GatewayApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(GatewayApplication.class, args);
+    }
+
+    @Bean(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME)
+    public AsyncTaskExecutor asyncTaskExecutor() {
+        return new TaskExecutorAdapter(Executors.newVirtualThreadPerTaskExecutor());
+    }
+
+    @Bean
+    public TomcatProtocolHandlerCustomizer<?> protocolHandlerVirtualThreadExecutorCustomizer() {
+        return protocolHandler -> {
+            protocolHandler.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
+        };
+    }
+}
+```
+
+Zum einen, um Spring mitzuteilen, dass jeder Aufruf der Funktionen, welche mit der `@Async` Annotation annotiert sind,
+einen eigenen Virtual Thread erhält. Zum anderen, um Tomcat mitzuteilen, dass pro eingehendem Request ein neuer
+Virtual Thread erstellt werden soll.
+
+### Seit Version 3.2 [^3]
+
+Um virtuelle Threads ab Spring Boot 3.2 zu aktivieren, muss lediglich eine Eigenschaft in der
+Datei `application.yml` beziehungsweise `application.properties` festgelegt werden:
+
+```yaml
+spring.threads.virtual.enabled: true
+```
+
+Durch das Aktivieren dieser Option werden automatisch folgende Features aktiviert
+
+- Tomcat wird virtuelle Threads für die Verarbeitung von HTTP-Anfragen verwenden.
+  Das bedeutet, dass Ihr Anwendungscode, der eine Web-Anfrage bearbeitet,
+  z. B. eine Methode in einem Controller, in einem virtuellen Thread ausgeführt wird.
+- Beim Aufruf von `@Async-Methoden` verwenden die asynchrone Request-Verarbeitung von Spring MVC
+  und die Unterstützung der blockierenden Ausführung von Spring WebFlux nun virtuelle Threads
+- Methoden, die mit `@Scheduled` markiert sind, werden auf einem virtuellen Thread ausgeführt
+
+<em>
+  Darüber hinaus laufen durch das Aktivieren der Spring-Option einige spezifische Integrationen wie
+  RabbitMQ/Kafka-Listener und Spring Data Redis/Apache Pulsar-bezogene Integrationen auf virtuellen
+  Threads. Diese Integrationen sind jedoch nicht Gegenstand dieses Beitrags.
+</em>
+
+<br></br>
+<br></br>
+
+[^1]: Siehe https://spring.io/blog/2022/10/11/embracing-virtual-threads/
+[^2]: Siehe https://git.fh-muenster.de/fep-23-threaktive/fep_minimalistic/-/blob/feature/with-database/Virtual_Minimalistic_Microservice/src/main/java/com/example/gateway/GatewayApplication.java?ref_type=heads
+[^3]: Siehe https://spring.io/blog/2023/09/09/all-together-now-spring-boot-3-2-graalvm-native-images-java-21-and-virtual/#spring-boot-32

@@ -1,0 +1,55 @@
+## 7000MB RAM
+
+In diesem Szenario werden alle Anwendungen in Containern mit 8 GB RAM bereitgestellt, wobei jedem
+Container 8 CPU-Kerne zugewiesen sind. Die Java-Anwendung innerhalb des Containers wird auf 7 GB begrenzt.
+Die Anzahl paralleler Nutzer (K6 Virtual Users) wird kontinuierlich erhöht, bis entweder das System
+abstürzt oder keine weitere Steigerung des Durchsatzes feststellbar ist, was darauf hindeutet, dass
+das System sein Limit erreicht hat. Die hier getestete Anwendung ist ein RESTful Webservice, der genau
+einen Endpunkt bereitstellt.
+Im vorherigen Kapitel wurde bereits gezeigt, dass der maximale Durchsatz, unter der Bedingung ausreichend
+vorhandener Ressourcen wie genügend RAM, hauptsächlich von der Anzahl und der Leistungsfähigkeit der
+verfügbaren CPU-Kerne abhängt, wenn ein nicht unerheblicher Teil der Anfragen gerechnet wird.
+Deshalb liegt der Fokus dieses Kapitels auf Anfragen, bei denen nur ein verschwindend kleiner Teil des
+Requests gerechnet wird. Diese Prämisse ist praxisnah, da es einige Backends gibt, die lediglich Daten
+aus beispielsweise Datenbanken lesen und diese an das Frontend weitergeben. Die Logik des Endpunktes ist
+deshalb wie folgt: Es wird zweimal für jeweils 500 Millisekunden gewartet.
+
+### Java Platform Threads
+
+BILD
+
+Ab 500 Virtuellen Usern erhöht sich die durchschnittliche Antwortzeit der Requests. Dies lässt sich darauf
+zurückführen, dass Tomcat bzw. das Spring-Boot-Backend eintreffende Requests so lange in einer Warteschlange
+zwischenspeichert, bis ein freier Platform-Thread die Anfrage annehmen kann. Ein Maximaler Durchsatz wird
+hier bei 1000 Virtuellen Usern bei ca. 9000 Requests in 50 Sekunden erreicht. RAM und CPU sind beide fast
+gar nicht in verwendung.
+
+### Reactive
+
+BILD
+
+Ab 14.000 Virtuellen Usern (35-mal mehr als bei Java Platform Threads) steigt die Fehlerrate (also wie
+viel Prozent der Requests nicht beantwortet werden können). Die Durchschnittliche Antwortzeit der
+beantworteten Requests beträgt immer 1 Sekunde. Der Maximale Durchsatz wird bei 14.000 Virtuellen
+Usern erreicht und beträgt knapp über 200.000 Requests in 50 Sekunden (25-mal mehr als bei Java Platform Threads).
+RAM- und CPU-Verbrauch steigen linear an bis zu den Punkt, wo das System an seine Grenzen kommt. Dass
+der RAM-Verbrauch ab 14.000 Virtuellen Usern wieder fällt, ist darauf zurückzuführen, dass Netty intern
+die Event-Loop realisiert und dass irgendwann die Event-Queue zu voll ist und auch hier Requests zurückgewiesen
+werden von Backend.
+
+### Virtual Threads
+
+BILD
+
+Ab 14.000 Virtuellen Usern (35-mal mehr als bei Java Platform Threads wie bei Reaktiv) steigt die
+Fehlerrate (also wie viel Prozent der Requests nicht beantwortet werden können). Die Durchschnittliche
+Antwortzeit der beantworteten Requests beträgt immer 1 Sekunde bis 16.000 VUs (wie bei Reaktiv). Der
+maximale Durchsatz wird bei 14.000 Virtuellen Usern erreicht und beträgt knapp 160.000 Requests in
+50 Sekunden (20-mal mehr als bei Java Platform Threads). RAM und CPU verbrauch steigen an bis zu dem
+Punkt, wo das System an seine Grenzen kommt. Dass der RAM-Verbrauch ab 14.000 Virtuellen Usern weiter steigt,
+obwohl ein gewisser Prozentsatz der Requests nicht beantwortet wird, kann darauf zurückgeführt werden,
+dass ab da die Durchschnittliche Antwortzeit ansteigt (also die Zeit, die das Backend benötigt, um einen
+Requests zu beantworten). Intern werden also irgendwann nicht mehr Virtuelle Threads gestartet aber jeder
+virtuelle Thread hat eine längere Lebensdauer (Es existieren also mehr Virtuelle Threads zu einem Zeitpunkt).
+Dass der CPU-Verbrauch zurückgeht, lässt sich dadurch erklären, dass der Durchsatz sinkt bzw. im selben Zug
+die Fehlerrate steigt.

@@ -1,0 +1,75 @@
+---
+authorName: Robin Wiehle
+authorGithubName: robinwi9
+---
+
+# Allgemein [^1] [^3]
+
+In einer Java-Anwendung können virtuelle Threads über verschiedene Möglichkeiten eingesetzt bzw. aktiviert werden.
+Die Funktionsweise der Java Virtual Machine (JVM) wird durch die virtuellen Threads grundlegend verändert,
+aber die Integration ist sehr ähnlich, zu den Platform (normalen) Threads.
+Im Folgenden werden die vorherigen nicht virtuellen Threads, Platform Threads genannt.
+Durch die Ähnlichkeiten ist ein Refactoring einer Java-Anwendung einfach gestaltet,
+um die Platform Threads auf virtuelle Threads umzustellen. Es gibt die Möglichkeit die virtuellen Threads manuell
+zu Erstellen oder einen `Executor` zu verwenden. Es besteht auch die Option, im gesamten Projekt das Aktivieren
+virtueller Threads im Spring Boot Framework zu nutzen.
+
+## Manuelle Erzeugung
+
+Im folgenden Beispiel ist das manuelle Starten der virtuellen Threads zu sehen.
+Das Interface `Runnable` wird genau wie bei den Platform Threads verwendet und dem virtuellen Thread übergeben.
+
+```java
+public void startVirtualThreads() {
+    long startTime = System.currentTimeMillis();
+    int threadCount = 50000;
+
+    Runnable runnable = () -> { /** Task to do! **/  };
+
+    for (int i = 0; i < threadCount; i++){
+        Thread.startVirtualThread(runnable);
+    }
+
+    long finishTime = System.currentTimeMillis();
+    long endTime = finishTime - startTime;
+
+    System.out.println("Runtime: " + endTime);
+}
+```
+
+Es wird über `Thread.startVirtualThread(runnable)` ein virtueller Thread pro Aufgabe erzeugt.
+Im obigen Beispiel ist die Vorgehensweise zu sehen, die bei Platform Threads zum manuellen Starten verwendet wurde.
+Auf dieser Grundlage kann eine Anwendung schnell von Platform Threads auf virtuelle Threads umgestellt werden.
+
+```java
+Runnable runnable = () -> { /** Task to do! **/  };
+Thread t = new Thread(runnable);
+t.start();
+```
+
+## Executor Service [^2]
+
+Ein `ExecutorService` ist eine Java-Schnittstelle, die es ermöglicht, Aufgaben zur Ausführung an Threads zu delegieren.
+Der `ExecutorService` verwaltet einen Pool von Threads und nimmt Aufgaben entgegen, die dann von dem Thread Pool ausgeführt warden.
+Ein `ExecutorService` ist bei der Verwendung von Platform Threads weit verbreitet.
+Unter virtuellen Threads wird kein Pooling mehr benötigt, da die virtuellen Threads leichtgewichtet sind
+und für jede Aufgabe ein neuer virtueller Thread gestartet wird. Viele alte Anwendungen verwenden dieses Muster
+des Executor und es kann auf die virtuellen Threads umgestellt werden. Es wird pro Aufgabe trotzdem
+ein neuer virtueller Thread erstellt. Im Beispiel unten sind beide Varianten zusehen.
+Zuerst wird ein `ExecutorService` mit Platform Threads erstellt, hier muss die Anzahl der Platform Threads
+in der Methode `newFixedThreadPool(poolSize)` übergegeben werden. Bei den virtuellen Threads wird die Methode
+`newVirtualThreadPerTaskExecutor()` verwendet und pro Aufgabe wird ein virtueller Thread erstellt.
+Aus diesem Grund wird hier kein `Integer` mit der Größe für den Thread Pool übergeben.
+
+```java
+// Platform Threads
+Integer poolSize = 1000;
+ExecutorService executorOld = Executors.newFixedThreadPool(poolSize);
+
+// Virtual Threads
+ExecutorService executorNew = Executors.newVirtualThreadPerTaskExecutor();
+```
+
+[^1]: Siehe https://www.infoworld.com/article/3678148/intro-to-virtual-threads-a-new-approach-to-java-concurrency.html
+[^2]: Siehe https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html
+[^3]: Siehe https://www.happycoders.eu/de/java/virtual-threads/

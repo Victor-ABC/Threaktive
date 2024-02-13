@@ -1,0 +1,13 @@
+# Minimalistisches Beispiel mit Datenbank
+
+Im vorherigen Kapitel wurden die Ergebnisse von Lasttests vorgestellt, in welchen die Services keine echten
+Aufgaben erledigen, sondern vorrangig eine gewisse Zeit abwarten. Im Folgenden werden die Ergebnisse von
+Lasttests mit realitätsnahen Aufgaben vorgestellt. Auf der einen Seite erneut ein minimalistisches Beispiel
+bestehend aus einem Microservice, über welchen eine simple Student-Entität angelegt und anschließend abgefragt
+werden kann. Auf der anderen Seite das große Praxisbeispiel bestehend aus mehreren Microservices, welche
+jeweils eine eigene Datenbank besitzen und neben HTTP auch via RabbitMQ über eine Queue kommunizieren.
+Die Tests wurden auf einem leistungsstarken PC durchgeführt, der mit folgenden Komponenten ausgestattet ist:
+CPU: Intel i9-11950H mit 8 Kernen, RAM: 32 GB DDR4 RAM und Grafikkarte: NVIDIA RTX A3000. Die Anwendungen
+selbst wurden in Docker-Containern mit festen Ressourcenzuweisungen (zum Beispiel 2GB RAM und 2 CPU-Kerne)
+gestartet, und die Tests wurden im Zuge eines Durchschnittlichen Lasttests über einen deutlich längeren
+Zeitraum durchgeführt, um etwaige Störungen zu minimieren.

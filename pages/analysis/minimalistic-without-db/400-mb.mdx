@@ -1,0 +1,44 @@
+## 400MB RAM
+
+Im ersten Szenario werden alle Anwendungen in Containern mit 1 GB RAM bereitgestellt, wobei
+jedem Container 8 CPU-Kerne zugewiesen sind. Die Java-Anwendung innerhalb des Containers wird
+auf 400 MB begrenzt. Die Anzahl paralleler Nutzer (K6: Virtual Users) wird kontinuierlich erhöht,
+bis entweder das System abstürzt oder keine weitere Steigerung des Durchsatzes feststellbar ist,
+was darauf hindeutet, dass das System sein Limit erreicht hat.
+Die hier getestete Anwendung ist ein RESTful Webservice, der genau einen Endpunkt bereitstellt.
+Die Logik des Endpunktes ist folgende: Zunächst wird 500 Millisekunden gewartet. Anschließend wird
+eine CPU-Intensive Aufgabe gerechnet mit einer Berechnungsdauer von 25 Millisekunden
+(was 25/1025 = 2,4% der Gesamtzeit entspricht), gefolgt von erneuten 500 Millisekunden Wartezeit.
+Der maximale Durchsatz kann in diesem Fall ex ante berechnet werden und beträgt 1000/25
+(Anteil einer Sekunde, der gerechnet wird) \* 8 (CPU-Kerne) = 320 Requests pro Sekunde.
+Maßgeblich für den maximalen Durchsatz ist der relative Anteil des Requests, in dem nicht blockierend
+gewartet, sondern gerechnet wird.
+
+### Java Platform Threads
+
+BILD
+
+Bis 400 Benutzer (VUs) bleibt die durchschnittliche Antwortzeit konstant bei 1025 Millisekunden.
+Unter einer Belastung von 6300 Virtuellen Usern (Nebenläufigen Benutzern) bewältigt das Backend in
+50 Sekunden ca. 13.000 Anfragen. Das entspricht einem Durchsatz von 260 Anfragen pro Sekunde, wobei
+die durchschnittliche Antwortzeit bei 20 Sekunden liegt. Der Arbeitsspeicher ist ca. zur Hälfte verbraucht.
+
+### Reactive
+
+BILD
+
+Bei einer Belastung von 6300 Virtuellen Usern (Nebenläufigen Benutzern) bewältigt das Backend innerhalb
+von 50 Sekunden ungefähr 16000 Anfragen. Dies entspricht einem Durchsatz von 320 Anfragen pro Sekunde,
+wobei die durchschnittliche Antwortzeit bei 15 Sekunden liegt (25% schneller als bei Java Platform Threads).
+Damit schafft die reaktive Version den ex ante berechneten maximalen Durchsatz von 320 Anfragen pro Sekunde.
+Dabei wird der Arbeitsspeicher zu etwa 40% belegt.
+
+### Virtual Threads
+
+BILD
+
+Unter einer Belastung von 3000 Virtuellen Usern (Nebenläufigen Benutzern) bewältigt das Backend innerhalb von
+etwa 50 Sekunden ungefähr 12.500 Anfragen. Dies entspricht einem Durchsatz 250 Anfragen pro Sekunde, wobei die
+durchschnittliche Antwortzeit bei nur 8 Sekunden liegt. Der Arbeitsspeicher wird dabei vollständig ausgelastet.
+In den Versuchen stürzt bei 4000 Virtuellen Usern die Spring-Boot-Anwendung immer aufgrund eines
+java.lang.OutOfMemoryError (vgl. Abbildung) ab. Der RAM ist 100% belegt.
