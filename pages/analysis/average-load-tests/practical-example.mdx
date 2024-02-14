@@ -1,1 +1,26 @@
+---
+authorName: Carla Hugenroth
+authorGithubName: hrothc
+---
+
 # Praxisbeispiel
+
+Die dargestellte Grafik des Praxisbeispiels (s.u.) offenbart eine auffällige Varianz in den
+Antwortzeiten der virtuellen Threads. Diese Streuung erstreckt sich von minimalen Werten nahe
+null bis hin zu maximalen Werten von bis zu 30.000 Millisekunden. Die deutliche Bandbreite in den
+gemessenen Antwortzeiten weist darauf hin, dass die virtuellen Threads unterschiedlich auf die
+gegebenen Anforderungen reagieren.
+
+BILD
+
+Wird die Anzahle der jeweils vorkommenden Dauer betrachtet so liegen die meisten Werte im Bereich
+von unter 5000 Millisekunden. Es ist jedoch eine leichte Erhebung bei den normalen Threads im
+Bereich über 500 Millisekunden zu erkennen, die näher betrachtet werden sollte.
+
+BILD
+
+Werden die Antwortzeiten über 500 Millisekunden betrachtet, wird sichtbar, dass die normalen
+Threads dort noch einige male vorkommen. Was die im Durchschnitt bessere Performance der
+Virtuellen Threads erklärt.
+
+BILD

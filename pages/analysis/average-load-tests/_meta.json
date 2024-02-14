@@ -1,6 +1,7 @@
 {
-    "introduction": "Einführung",
-    "evaluation-approach": "Vorgehen bei Auswertung",
-    "practical-example": "Praxisbeispiel",
-    "minimalistic-example": "Minimalbeispiel"
+  "evaluation-approach": "Vorgehen bei Auswertung",
+  "practical-example": "Praxisbeispiel",
+  "minimalistic-example": "Minimalbeispiel",
+  "comparison": "Verhältnis Varianz und der Standardabweichung",
+  "results": "Ergebnisauswertung"
 }

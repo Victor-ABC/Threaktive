@@ -1,4 +1,10 @@
+---
+authorName: Robin Wiehle
+authorGithubName: robinwi9
+---
+
 import Image from "next/image"
+import osVtHandlingImage from "./os_vt_handling.png"
 
 # Continuation API [^1] [^2] [^3]
 
@@ -17,21 +23,11 @@ die Aufgabe des virtuellen Threads führt einen blockierenden Aufruf aus und war
 Der letzte Zustand ist der `"unmounted ready"`, der blockierende Aufruf der Aufgabe hat die Antwort zurückerhalten.
 Zudem wurden alle wichtigen Informationen aus dem Heap Speicher geladen und die Aufgabe ist bereit weiter ausgeführt zu werden.
 
-<div className="box-center" style={{ width: "430px", height: "calc(398px + 40px)" }}>
-  <Image
-    sizes="100vw"
-    style={{
-        width: '100%',
-        height: 'auto',
-      }}
-    width={430}
-    height={475}
-    src="/images/os_vt_handling.png"
-    alt="Betriebssystem Handling mit Virtual Threads"
-
-/>
-
-  <span className="source text-center">Abbildung X - Quelle: https://jenkov.com/tutorials/java-concurrency/java-virtual-threads.html</span>
+<div className="box-center">
+  <Image src={osVtHandlingImage} alt="Betriebssystem Handling mit Virtual Threads" />
+  <span className="source">
+    Abbildung X - Quelle: https://jenkov.com/tutorials/java-concurrency/java-virtual-threads.html
+  </span>
 </div>
 
 Wenn die Aufgabe ausgeführt wird (nachdem die Methode run ausgeführt wurde) und einen blockierenden Aufruf ausgeführt hat
@@ -88,15 +84,16 @@ Dieses Vorgehen ist die Art und Weise, wie blockierende Operationen von der JVM 
 Ein direkter Vergleich zwischen Platform Threads und virtuellen Threads ist hier: zu sehen. Hier wird auch der zeitliche Faktor betrachtet.
 Eine Analogie um den Unterschied zwischen Platform Threads und Virtuellen Threads besser zu verstehen, ist in diesem Tutorial zu sehen.
 
-<iframe
-  className="box-center"
-  width="560"
-  height="315"
-  src="https://www.youtube-nocookie.com/embed/moWtPS_PwU0?si=58ZXiZdZyg5y6T6N"
-  title="YouTube video player"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  allowFullScreen
-></iframe>
+<div className="box-center">
+  <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube-nocookie.com/embed/moWtPS_PwU0?si=58ZXiZdZyg5y6T6N"
+    title="YouTube video player"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowFullScreen
+  ></iframe>
+</div>
 
 [^1]: Siehe https://www.happycoders.eu/de/java/virtual-threads/
 [^2]: Siehe https://www.youtube.com/watch?v=5E0LU85EnTI

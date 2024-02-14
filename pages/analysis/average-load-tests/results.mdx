@@ -1,0 +1,16 @@
+---
+authorName: Carla Hugenroth
+authorGithubName: hrothc
+---
+
+# Ergebnisauswertung
+
+Sowohl Reaktiv als auch Virtual Threads performen in unseren “Laborbeispiel“ (Minimalistisch)
+deutlich besser als „Normal“ (Beide haben den Faktor 35 was die Anzahl an Virtual Users betrifft,
+die gleichzeitig bei gleichbleibender Antwortzeit gehandelt werden können). Reaktiv schafft da
+25-mal mehr maximalen Durchsatz und Virtual Threads 20-mal mehr. Bei gleicher Last verbrauchen
+Virtuelle Threads deutlich mehr Arbeitsspeicher als bei Reaktiv. Umstellung auf Virtual Threads
+ist deutlich einfacher als Reengineering auf Reaktiv. Die Streuung der Antwortzeiten ist bei
+Virtuellen Threads größer, dafür sind sie im Schnitt jedoch schneller als die normale
+Implementierung. Reaktiv bringt weitere Probleme mit sich (schweres Debugging, schwer zu Lesen,
+Entwickler-Fremd, Notwendigkeit reaktiver Bibliotheken…)

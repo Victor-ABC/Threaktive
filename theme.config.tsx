@@ -74,7 +74,6 @@ const config: DocsThemeConfig = {
   },
   /** If this does not work, you may need to commit new files first, as otherwise the timestamp is missing */
   gitTimestamp: (args) => {
-    console.log("getTimestamp", args)
     const { timestamp } = args
     const { authorName, authorGithubName } = useConfig()?.frontMatter ?? {}
 
@@ -102,11 +101,21 @@ const config: DocsThemeConfig = {
             <Link href={`https://github.com/${authorGithubName}`}>
               <img
                 alt={authorName}
-                style={{ borderRadius: "50%", height: "3em", aspectRatio: "1 / 1" }}
+                style={{
+                  borderRadius: "50%",
+                  height: "3em",
+                  aspectRatio: "1 / 1",
+                }}
                 src={`https://github.com/${authorGithubName}.png`}
               />
             </Link>
-            <div style={{ display: "flex", flexDirection: "column", marginLeft: "1em" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginLeft: "1em",
+              }}
+            >
               <p
                 style={{
                   color: "rgba(156,163,175,var(--tw-text-opacity))",

@@ -1,4 +1,11 @@
+---
+authorName: Robin Wiehle
+authorGithubName: robinwi9
+---
+
 import Image from "next/image"
+import threadMappingImage from "./thread_mapping.png"
+import virtualThreadMappingImage from "./virtual_thread_mapping.png"
 
 # Vergleich: Virtual Threads vs Platform Threads
 
@@ -17,21 +24,9 @@ ist der Vorgang, bei dem die Bearbeitung des aktuellen Threads unterbrochen wird
 Thread zur Bearbeitung gewechselt ist. Diese Zeit liegt ca. bei 100μs. In der Abbildung x ist das „Mapping“
 der Platform Threads zu den Betriebssystem Threads zu sehen.
 
-<div className="box-center" style={{ width: "430px", height: "calc(343px + 20px)" }}>
-  <Image
-    sizes="100vw"
-    style={{
-        width: '100%',
-        height: 'auto',
-      }}
-    width={430}
-    height={475}
-    src="/images/thread_mapping.png"
-    alt="Mapping: Platform Threads zu Betriebssystem Threads"
-
-/>
-
-  <span className="source text-center">Abbildung X - Quelle: Eigene Anfertigung</span>
+<div className="box-center">
+  <Image src={threadMappingImage} alt="Mapping: Platform Threads zu Betriebssystem Threads" />
+  <span className="source">Abbildung X - Quelle: Eigene Anfertigung</span>
 </div>
 
 Bei den virtuellen Threads ist das „Mapping“ geändert worden, um zeitliche Vorteile im Durchsatz
@@ -44,21 +39,12 @@ und es können sehr viele gestartet werden (über 1.000.000 – liegt an der Har
 Aufgabe ein neuer virtueller Thread erstellt. Ein Virtual Thread ist um mehr als das 1000 fache
 leichtgewichtiger als ein Platform Thread. Das Mapping der virtuellen Threads ist in Abbildung x zu sehen.
 
-<div className="box-center" style={{ width: "430px", height: "calc(251px + 20px)" }}>
+<div className="box-center">
   <Image
-    sizes="100vw"
-    style={{
-        width: '100%',
-        height: 'auto',
-      }}
-    width={430}
-    height={475}
-    src="/images/virtual_thread_mapping.png"
+    src={virtualThreadMappingImage}
     alt="Mapping: Platform Threads zu Betriebssystem Threads"
-
-/>
-
-  <span className="source text-center">Abbildung X - Quelle: Eigene Anfertigung</span>
+  />
+  <span className="source">Abbildung X - Quelle: Eigene Anfertigung</span>
 </div>
 
 ## Vor- und Nachteile

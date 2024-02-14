@@ -12,5 +12,6 @@
     "javascriptreact",
     "typescript",
     "typescriptreact"
-  ]
+  ],
+  "prettier.semi": false
 }
