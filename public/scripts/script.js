@@ -18,4 +18,4 @@ const initialize = function () {
   }
 }
 
-addEventListener("load", () => initialize())
+initialize()

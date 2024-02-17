@@ -3,6 +3,8 @@ authorName: Victor Corbet
 authorGithubName: victorcorbet
 ---
 
+import ScalableImage from "../../../components/scalable-image/scalable-image"
+
 ## Weniger Ressourcen - 400MB RAM
 
 Im ersten Szenario werden alle Anwendungen in Containern mit 1 GB RAM bereitgestellt, wobei
@@ -21,7 +23,12 @@ gewartet, sondern gerechnet wird.
 
 ### Java Platform Threads
 
-BILD
+<ScalableImage
+  fullWidth
+  src="/images/400_PT.png"
+  alt="Messungen der Antwortzeit und des Durchsatzes (Java Platform Threads 400MB)"
+  description="Abbildung X - Quelle: Eigene Anfertigung"
+/>
 
 Bis 400 Benutzer (VUs) bleibt die durchschnittliche Antwortzeit konstant bei 1025 Millisekunden.
 Unter einer Belastung von 6300 Virtuellen Usern (Nebenläufigen Benutzern) bewältigt das Backend in
@@ -30,7 +37,12 @@ die durchschnittliche Antwortzeit bei 20 Sekunden liegt. Der Arbeitsspeicher ist
 
 ### Reactive
 
-BILD
+<ScalableImage
+  fullWidth
+  src="/images/400_reactive.png"
+  alt="Messungen der Antwortzeit und des Durchsatzes (Reactive 400MB)"
+  description="Abbildung X - Quelle: Eigene Anfertigung"
+/>
 
 Bei einer Belastung von 6300 Virtuellen Usern (Nebenläufigen Benutzern) bewältigt das Backend innerhalb
 von 50 Sekunden ungefähr 16000 Anfragen. Dies entspricht einem Durchsatz von 320 Anfragen pro Sekunde,
@@ -40,7 +52,12 @@ Dabei wird der Arbeitsspeicher zu etwa 40% belegt.
 
 ### Virtual Threads
 
-BILD
+<ScalableImage
+  fullWidth
+  src="/images/400_vt.png"
+  alt="Messungen der Antwortzeit und des Durchsatzes (Virtual Threads 400MB)"
+  description="Abbildung X - Quelle: Eigene Anfertigung"
+/>
 
 Unter einer Belastung von 3000 Virtuellen Usern (Nebenläufigen Benutzern) bewältigt das Backend innerhalb von
 etwa 50 Sekunden ungefähr 12.500 Anfragen. Dies entspricht einem Durchsatz 250 Anfragen pro Sekunde, wobei die

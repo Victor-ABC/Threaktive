@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Component {...pageProps} />
-      <Script src="/scripts/script.js" />
+      <Script src="/scripts/script.js" defer />
     </>
   )
 }

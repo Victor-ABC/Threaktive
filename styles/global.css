@@ -6,9 +6,13 @@ p {
   text-align: justify;
 }
 
-img {
+img:not(dialog img) {
   width: 100%;
   max-width: 500px !important;
+}
+
+img.full-width {
+  max-width: 100% !important;
 }
 
 .box-center {

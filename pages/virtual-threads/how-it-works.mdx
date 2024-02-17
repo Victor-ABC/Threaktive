@@ -3,10 +3,9 @@ authorName: Robin Wiehle
 authorGithubName: robinwi9
 ---
 
-import Image from "next/image"
-import osVtHandlingImage from "./os_vt_handling.png"
+import ScalableImage from "../../components/scalable-image/scalable-image"
 
-# Continuation API [^1] [^2] [^3]
+# Continuation API [^1] [^2] [^3] [^4]
 
 Einen wichtigen Part hat das spezielle Objekt `Continuation` mit deren Methoden für die Umsetzung
 und der Verwaltung der virtuellen Threads. Aus der Sicht eines Entwicklers wird dieser mit dem Objekt
@@ -23,12 +22,11 @@ die Aufgabe des virtuellen Threads führt einen blockierenden Aufruf aus und war
 Der letzte Zustand ist der `"unmounted ready"`, der blockierende Aufruf der Aufgabe hat die Antwort zurückerhalten.
 Zudem wurden alle wichtigen Informationen aus dem Heap Speicher geladen und die Aufgabe ist bereit weiter ausgeführt zu werden.
 
-<div className="box-center">
-  <Image src={osVtHandlingImage} alt="Betriebssystem Handling mit Virtual Threads" />
-  <span className="source">
-    Abbildung X - Quelle: https://jenkov.com/tutorials/java-concurrency/java-virtual-threads.html
-  </span>
-</div>
+<ScalableImage
+  src="/images/os_vt_handling.png"
+  alt="Betriebssystem Handling mit Virtual Threads"
+  description="Abbildung X - Quelle: https://jenkov.com/tutorials/java-concurrency/java-virtual-threads.html"
+/>
 
 Wenn die Aufgabe ausgeführt wird (nachdem die Methode run ausgeführt wurde) und einen blockierenden Aufruf ausgeführt hat
 und auf dessen Antwort wartet, wird auf dem Object `Continuation` die Methode `yield()` aufgerufen.
@@ -95,6 +93,7 @@ Eine Analogie um den Unterschied zwischen Platform Threads und Virtuellen Thread
   ></iframe>
 </div>
 
-[^1]: Siehe https://www.happycoders.eu/de/java/virtual-threads/
-[^2]: Siehe https://www.youtube.com/watch?v=5E0LU85EnTI
-[^3]: Siehe https://www.baeldung.com/java-virtual-thread-vs-thread
+[^1]: Siehe https://www.happycoders.eu/de/java/virtual-threads/, letzter Zugriff am 17.02.2024
+[^2]: Siehe https://www.youtube.com/watch?v=5E0LU85EnTI, letzter Zugriff am 17.02.2024
+[^3]: Siehe https://www.baeldung.com/java-virtual-thread-vs-thread, letzter Zugriff am 17.02.2024
+[^4]: Siehe https://entwickler.de/java/blick-in-die-fernere-zukunft, letzter Zugriff am 17.02.2024

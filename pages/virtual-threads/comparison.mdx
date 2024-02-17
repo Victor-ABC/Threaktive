@@ -3,16 +3,14 @@ authorName: Robin Wiehle
 authorGithubName: robinwi9
 ---
 
-import Image from "next/image"
-import threadMappingImage from "./thread_mapping.png"
-import virtualThreadMappingImage from "./virtual_thread_mapping.png"
+import ScalableImage from "../../components/scalable-image/scalable-image"
 
 # Vergleich: Virtual Threads vs Platform Threads
 
 In diesem Kapitel werden die Platform Threads mit den virtuellen Threads verglichen,
 wo die Unterschiede und dementsprechend die Vor- und Nachteile dieser beiden Verfahren liegen.
 
-## Allgemein
+## Allgemein [^1] [^2]
 
 Für einen Java-Platform Thread wird ein Betriebssystem Thread verwendet, dass Scheduling wird
 vom Betriebssystem durchgeführt. Die Zuordnung zwischen dem Platform Threads und dem Betriebssystem
@@ -24,30 +22,31 @@ ist der Vorgang, bei dem die Bearbeitung des aktuellen Threads unterbrochen wird
 Thread zur Bearbeitung gewechselt ist. Diese Zeit liegt ca. bei 100μs. In der Abbildung x ist das „Mapping“
 der Platform Threads zu den Betriebssystem Threads zu sehen.
 
-<div className="box-center">
-  <Image src={threadMappingImage} alt="Mapping: Platform Threads zu Betriebssystem Threads" />
-  <span className="source">Abbildung X - Quelle: Eigene Anfertigung</span>
-</div>
+<ScalableImage
+  fullWidth
+  src="/images/thread_mapping.png"
+  alt="Mapping: Platform Threads zu Betriebssystem Threads"
+  description="Abbildung X - Quelle: Eigene Anfertigung"
+/>
 
 Bei den virtuellen Threads ist das „Mapping“ geändert worden, um zeitliche Vorteile im Durchsatz
 generieren zu können. Ein virtueller Thread wird auf dem Platform Thread gemappt (mounting),
 dieser wird dann Carrier Thread genannt. Die Anzahl der Platform Threads ist durch die Anzahl der
-Kerne der CPU vorgegeben. Das genaue mounting bzw. unmounting wird hier erklärt: Link. Die JVM
+Kerne der CPU vorgegeben. Das genaue mounting bzw. unmounting wird hier erklärt: [ThreaKtive - Virtual Threads - Funktionsweise](https://threaktive.vercel.app/virtual-threads/how-it-works). Die JVM
 verwaltet das mouting bzw. unmouting der virtuellen Threads, anders als bei den Platform Threads,
 das Scheduling wird vom Betriebssystem übernommen. Die virtuellen Threads sind sehr leichtgewichtet
 und es können sehr viele gestartet werden (über 1.000.000 – liegt an der Hardware), deshalb wird pro
 Aufgabe ein neuer virtueller Thread erstellt. Ein Virtual Thread ist um mehr als das 1000 fache
 leichtgewichtiger als ein Platform Thread. Das Mapping der virtuellen Threads ist in Abbildung x zu sehen.
 
-<div className="box-center">
-  <Image
-    src={virtualThreadMappingImage}
-    alt="Mapping: Platform Threads zu Betriebssystem Threads"
-  />
-  <span className="source">Abbildung X - Quelle: Eigene Anfertigung</span>
-</div>
+<ScalableImage
+  fullWidth
+  src="/images/virtual_thread_mapping.png"
+  alt="Mapping: Platform Threads zu Betriebssystem Threads"
+  description="Abbildung X - Quelle: Eigene Anfertigung"
+/>
 
-## Vor- und Nachteile
+## Vor- und Nachteile [^3] [^4]
 
 Die virtuellen Threads sind keine schnelleren Threads, wenn diese mit dem normalen Platform Threads
 verglichen werden. Die virtuellen Threads haben in der Skalierung ihren großen Vorteil, wenn eine Anwendung
@@ -81,3 +80,8 @@ Die Berechnung der Platform Threads mit dem Executor würde ca. 50 Sekunden daue
 Die Berechnung der virtuellen Threads würde ca. über eine Sekunde dauern, da 50.000 virtuelle Threads gestartet werden, die die Wartezeit parallel abwarten. Die genaue Zeit ist pro Hardware unterschiedlich, da diese gestartet werden müssen und das mounting bzw. unmounting:
 
 `50.000 Operationen / (50.000 virtuelle Threads) = 50 Sekunden`
+
+[^1]: Siehe https://de.slideshare.net/dinkla/nebenlaeufigkeit-mit-koroutinen-strukturieren, letzter Zugriff am 17.02.2024
+[^2]: Siehe https://www.baeldung.com/java-virtual-thread-vs-thread, letzter Zugriff am 17.02.2024
+[^3]: Siehe https://www.happycoders.eu/de/java/virtual-threads/, letzter Zugriff am 17.02.2024
+[^4]: Siehe https://jenkov.com/tutorials/java-concurrency/java-virtual-threads.html, letzter Zugriff am 17.02.2024
