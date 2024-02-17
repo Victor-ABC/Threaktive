@@ -1,7 +1,7 @@
 import React from "react"
 import styles from "./sound-player.module.css"
 
-function SoundPlayer() {
+function SoundPlayerComponent() {
   function play() {
     const audio = document.getElementById("threaktive-name-sound") as HTMLAudioElement
     audio.play()
@@ -51,6 +51,6 @@ function SoundPlayer() {
   )
 }
 
-export default function MyApp() {
-  return <SoundPlayer />
+export default function SoundPlayer() {
+  return <SoundPlayerComponent />
 }

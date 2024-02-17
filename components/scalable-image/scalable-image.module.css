@@ -1,0 +1,12 @@
+.source {
+  font-size: 0.8em;
+  opacity: 0.75;
+}
+
+.full-width {
+  max-width: 100% !important;
+}
+
+.image:hover {
+  cursor: pointer;
+}
