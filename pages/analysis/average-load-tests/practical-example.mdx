@@ -3,6 +3,8 @@ authorName: Carla Hugenroth
 authorGithubName: hrothc
 ---
 
+import ScalableImage from "../../../components/scalable-image/scalable-image"
+
 # Praxisbeispiel
 
 Die dargestellte Grafik des Praxisbeispiels (s.u.) offenbart eine auffällige Varianz in den
@@ -11,16 +13,31 @@ null bis hin zu maximalen Werten von bis zu 30.000 Millisekunden. Die deutliche 
 gemessenen Antwortzeiten weist darauf hin, dass die virtuellen Threads unterschiedlich auf die
 gegebenen Anforderungen reagieren.
 
-BILD
+<ScalableImage
+  fullWidth
+  src="/images/pb_response_time.png"
+  alt="Messungen der Antwortzeit innerhalb des Praxisbeispiels (Platform Threads vs Virtual Threads)"
+  description="Abbildung X - Quelle: Eigene Anfertigung"
+/>
 
-Wird die Anzahle der jeweils vorkommenden Dauer betrachtet so liegen die meisten Werte im Bereich
+Wird die Anzahl der jeweils vorkommenden Dauer betrachtet so liegen die meisten Werte im Bereich
 von unter 5000 Millisekunden. Es ist jedoch eine leichte Erhebung bei den normalen Threads im
 Bereich über 500 Millisekunden zu erkennen, die näher betrachtet werden sollte.
 
-BILD
+<ScalableImage
+  fullWidth
+  src="/images/pb_request_duration.png"
+  alt="Messungen der Antwortzeit innerhalb des Praxisbeispiels als Balkendiagramm (Platform Threads vs Virtual Threads)"
+  description="Abbildung X - Quelle: Eigene Anfertigung"
+/>
 
 Werden die Antwortzeiten über 500 Millisekunden betrachtet, wird sichtbar, dass die normalen
 Threads dort noch einige male vorkommen. Was die im Durchschnitt bessere Performance der
 Virtuellen Threads erklärt.
 
-BILD
+<ScalableImage
+  fullWidth
+  src="/images/pb_request_duration_above_500.png"
+  alt="Messungen der Antwortzeit innerhalb des Praxisbeispiels über 500ms als Balkendiagramm (Platform Threads vs Virtual Threads)"
+  description="Abbildung X - Quelle: Eigene Anfertigung"
+/>

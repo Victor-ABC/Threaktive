@@ -3,6 +3,8 @@ authorName: Carla Hugenroth
 authorGithubName: hrothc
 ---
 
+import ScalableImage from "../../../components/scalable-image/scalable-image"
+
 # Verhältnis Varianz und der Standardabweichung
 
 Um das Verhältnis zwischen den beiden Szenarien zu verstehen, betrachten wir die
@@ -10,22 +12,20 @@ Verhältnisse der jeweiligen Werte:
 
 ### Varianz
 
-```
- Varianz VirtualThreads     860693.4741225742
------------------------- = ------------------- ≈ 1.355
- Varianz normal             635313.9680897696
-```
+$$
+\frac{{\text{Varianz Virtual Threads}}}{{\text{Varianz Platform Threads}}} =
+\frac{{860693.4741225742}}{{635313.9680897696}} ≈ {1.355}
+$$
 
 Das Verhältnis beträgt etwa 1,355. Das bedeutet, dass die Varianz in "VirtualThreads" etwa
 1,355-mal größer ist als die Varianz im "normalen" Szenario.
 
 ### Standardabweichung
 
-```
- Standardabweichung VirtualThreads     927.475
------------------------------------ = --------- ≈ 1.163
- Standardabweichung normal	           796.440
-```
+$$
+\frac{{\text{Standardabweichung Virtual Threads}}}{{\text{Standardabweichung Platform Threads}}} =
+\frac{{927.475}}{{796.440}} ≈ {1.163}
+$$
 
 Das Verhältnis beträgt etwa 1,163. Das bedeutet, dass die Standardabweichung in "VirtualThreads"
 etwa 1,163-mal größer ist als die Standardabweichung im "normalen" Szenario. In beiden Fällen
@@ -67,4 +67,8 @@ Threads und Virtual Threads sorgfältig abgewogen werden, unter Berücksichtigun
 Anforderungen, der Performance-Ziele und der Toleranz gegenüber möglichen Ausreißern in den
 Antwortzeiten.
 
-BILD
+<ScalableImage
+  src="/images/pb_durations.png"
+  alt="Messungen der Antwortzeit innerhalb des Praxisbeispiels (Platform Threads vs Virtual Threads)"
+  description="Abbildung X - Quelle: Eigene Anfertigung"
+/>

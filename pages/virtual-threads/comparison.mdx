@@ -71,15 +71,30 @@ gut erklärt werden.
 
 Die Formel der Rechnung sieht folgend aus:
 
-`Operationen / Threads = x Sekunden`
+{/* `Operationen / Threads = x Sekunden` */}
+
+$$
+\frac{{Operationen}}{{Threads}} = x \text{ Sekunden}
+$$
 
 Die Berechnung der Platform Threads mit dem Executor würde ca. 50 Sekunden dauern, da dieser 50x mal die Wartezeit der Datenbankzugriffe abwarten muss:
 
-`50.000 Operationen / 1.000 Threads = 50 Sekunden`
+{/* `50.000 Operationen / 1.000 Threads = 50 Sekunden` */}
+
+$$
+\frac{{50.000 \text{ Operationen}}}{{1.000 \text{ virtuelle Threads}}} = {50 \text{ Sekunden}}
+$$
 
 Die Berechnung der virtuellen Threads würde ca. über eine Sekunde dauern, da 50.000 virtuelle Threads gestartet werden, die die Wartezeit parallel abwarten. Die genaue Zeit ist pro Hardware unterschiedlich, da diese gestartet werden müssen und das mounting bzw. unmounting:
 
-`50.000 Operationen / (50.000 virtuelle Threads) = 50 Sekunden`
+{/* `50.000 Operationen / (50.000 virtuelle Threads) = 1 Sekunde` */}
+
+$$
+\frac{{50.000 \text{ Operationen}}}{{50.000 \text{ virtuelle Threads}}} = {1 \text{ Sekunde}}
+$$
+
+<br></br>
+<br></br>
 
 [^1]: Siehe https://de.slideshare.net/dinkla/nebenlaeufigkeit-mit-koroutinen-strukturieren, letzter Zugriff am 17.02.2024
 [^2]: Siehe https://www.baeldung.com/java-virtual-thread-vs-thread, letzter Zugriff am 17.02.2024

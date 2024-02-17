@@ -3,6 +3,8 @@ authorName: Victor Corbet
 authorGithubName: victorcorbet
 ---
 
+import ScalableImage from "../../../components/scalable-image/scalable-image"
+
 ## Mehr Ressourcen - 7000MB RAM
 
 In diesem Szenario werden alle Anwendungen in Containern mit 8 GB RAM bereitgestellt, wobei jedem
@@ -21,7 +23,12 @@ deshalb wie folgt: Es wird zweimal für jeweils 500 Millisekunden gewartet.
 
 ### Java Platform Threads
 
-BILD
+<ScalableImage
+  fullWidth
+  src="/images/7000_PT.png"
+  alt="Messungen der Antwortzeit und des Durchsatzes (Java Platform Threads 7000MB)"
+  description="Abbildung X - Quelle: Eigene Anfertigung"
+/>
 
 Ab 500 Virtuellen Usern erhöht sich die durchschnittliche Antwortzeit der Requests. Dies lässt sich darauf
 zurückführen, dass Tomcat bzw. das Spring-Boot-Backend eintreffende Requests so lange in einer Warteschlange
@@ -31,7 +38,12 @@ gar nicht in verwendung.
 
 ### Reactive
 
-BILD
+<ScalableImage
+  fullWidth
+  src="/images/7000_reactive.png"
+  alt="Messungen der Antwortzeit und des Durchsatzes (Reaktive Programmierung 7000MB)"
+  description="Abbildung X - Quelle: Eigene Anfertigung"
+/>
 
 Ab 14.000 Virtuellen Usern (35-mal mehr als bei Java Platform Threads) steigt die Fehlerrate (also wie
 viel Prozent der Requests nicht beantwortet werden können). Die Durchschnittliche Antwortzeit der
@@ -44,7 +56,12 @@ werden von Backend.
 
 ### Virtual Threads
 
-BILD
+<ScalableImage
+  fullWidth
+  src="/images/7000_VT.png"
+  alt="Messungen der Antwortzeit und des Durchsatzes (Virtual Threads 7000MB)"
+  description="Abbildung X - Quelle: Eigene Anfertigung"
+/>
 
 Ab 14.000 Virtuellen Usern (35-mal mehr als bei Java Platform Threads wie bei Reaktiv) steigt die
 Fehlerrate (also wie viel Prozent der Requests nicht beantwortet werden können). Die Durchschnittliche
