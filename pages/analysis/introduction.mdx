@@ -7,7 +7,7 @@ authorGithubName: victorcorbet
 
 In diesem Abschnitt werden die Resultate der durchgeführten Lasttests erläutert.
 Ein Lasttest ist ein Softwaretest, der eine in der Regel erhebliche Last auf die Anwendung
-ausübt und dessen Verhalten analysiert [^1]. Die Zielsetzung umfasst die Identifikation von Fehlern,
+ausübt und dessen Verhalten analysiert[^1]. Die Zielsetzung umfasst die Identifikation von Fehlern,
 die in funktional orientierten System- oder Integrations-Tests nicht aufgedeckt wurden,
 die Erfüllung nichtfunktionaler Anforderungen (Qualitätsanforderungen) wie geforderte Antwortzeiten
 und Mengenverarbeitungen (Durchsatz) für den späteren Produktivbetrieb (Hauptaufgabe von Lasttests)
@@ -16,22 +16,22 @@ Testziel der Gruppe der Performance-Tests zuordnen. Der Lasttest erfolgt demnach
 (z.b. Unit-Tests), wobei das (Teil-)System sich in einem funktional stabilen Zustand befinden muss,
 um die Lastbewältigung überhaupt testen zu können. Die Prüftechnik ist dynamisch, was bedeutet, dass
 ein Lasttest niemals ausschließlich anhand des Quellcodes durchgeführt werden kann, im Gegensatz zu
-anderen Testverfahren wie beispielsweise der statischen Codeanalyse [^2].
+anderen Testverfahren wie beispielsweise der statischen Codeanalyse[^2].
 
 ## Webservice 
 
 Die zu testende Anwendung ist ein RESTful Webservice, welcher mit der Programmiersprache
-Java und dem Spring Boot Framework [^3] immer jeweils in drei Varianten entwickelt wird.
+Java und dem Spring Boot Framework[^3] immer jeweils in drei Varianten entwickelt wird.
 Dabei wird der Webservice einmal unter Verwendung von Java Platform Threads (Thread-per-Request-Ansatz),
-einmal mit Virtual Threads [^4] (Virtual Thread-per-Request-Ansatz) und einmal reaktiv implementiert.
-Bei der reaktiven Variante kamen das non-blocking I/O (NIO) Framework Netty [^5] sowie Spring Webflux zum Einsatz.
+einmal mit Virtual Threads[^4] (Virtual Thread-per-Request-Ansatz) und einmal reaktiv implementiert.
+Bei der reaktiven Variante kamen das non-blocking I/O (NIO) Framework Netty[^5] sowie Spring Webflux zum Einsatz.
 Für die Erfassung des Ressourcenverbrauchs der Plattform wurde ein REST-Endpunkt mittels der Bibliothek
-Spring Boot Actuator [^6] implementiert. Dieser Endpunkt gibt auf Anfrage die aktuelle Zeit sowie Kennzahlen
+Spring Boot Actuator[^6] implementiert. Dieser Endpunkt gibt auf Anfrage die aktuelle Zeit sowie Kennzahlen
 wie CPU-Verbrauch, Freier-RAM, belegter RAM, Größe des HEAP etc. zurück.
 
 ## Testtool
 
-In dieser Arbeit wird K6 [^7] als Test-Framework verwendet. K6 ist ein Open-Source-Tool, das für
+In dieser Arbeit wird K6[^7] als Test-Framework verwendet. K6 ist ein Open-Source-Tool, das für
 die Durchführung von Lasttests entwickelt wurde. Es ermöglicht Entwicklern und Qualitätssicherungsteams,
 die Leistung und Stabilität ihrer Anwendungen unter verschiedenen Belastungsszenarien zu überprüfen.
 K6 verwendet JavaScript als Skriptsprache, was die Erstellung von Testskripten flexibel und
