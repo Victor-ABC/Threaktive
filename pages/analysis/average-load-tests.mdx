@@ -17,8 +17,7 @@ authorGithubName: hrothc
 
 ## Einführung
 
-Neben dem Minimalistic Beispiel wurde noch ein weiteres Beispiel auf Virtuelle Threads umgestellt.
-Die Anwendung besteht aus einem modularen Architekturansatz, der auf drei Microservices basiert.
+Neben dem Minimalistic Beispiel wurde noch ein weiteres Beispiel auf Virtuelle Threads umgestellt, welches im Folgenden auch als Praxisbeispiel betitelt wird. Die Anwendung besteht aus einem modularen Architekturansatz, der auf drei Microservices basiert.
 Der erste Service, der UserManagement-Service, ermöglicht es Benutzern, sich zu registrieren und anzumelden.
 Dies stellt die grundlegenden Funktionen zur Benutzerverwaltung bereit. Der zweite Microservice, der
 ShoppingList-Service, dient dazu, dass Benutzer Produkte zu ihrer Einkaufsliste hinzufügen, aktualisieren
@@ -40,9 +39,9 @@ und leicht erweiterbare Architektur geschaffen.
 Es wurden Lasttests unter Verwendung des k6-Frameworks durchgeführt, wobei das Prinzip des Durchschnittlichen
 Lasttests angewandt wurde. Hierbei wurden 100 virtuelle Benutzer (VU) über einen Zeitraum von 40 Minuten
 simuliert. In diesem Kontext wurden die beiden Szenarien getestet: ein kleines, minimalistisches Beispiel,
-welches lediglich simple Datenbankabfragen durchführt, sowie ein umfangreicheres Szenario, das näher an
+welches lediglich simple Datenbankabfragen durchführt, sowie das umfangreichere Praxisbeispiel, das näher an
 praktischen Anwendungen liegt und neben Datenbanken auch Elemente wie RabbitMQ und Tokenhandling einschließt.
-Beide Beispiele wurden jeweils mit normalen und virtuellen Threads entwickelt, um eine umfassende
+Beide Beispiele wurden jeweils mit Platform Threads und virtuellen Threads entwickelt, um eine umfassende
 Bewertung der Leistungsfähigkeit zu ermöglichen. Die Ergebnisse dieser Tests bieten Einblicke in die
 Performance der Anwendungen unter verschiedenen Bedingungen und tragen dazu bei, mögliche Engpässe oder
 Optimierungsmöglichkeiten zu identifizieren.
