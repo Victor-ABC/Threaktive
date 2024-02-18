@@ -7,7 +7,7 @@ import ScalableImage from "../../../components/scalable-image/scalable-image"
 
 # Verhältnis Varianz und der Standardabweichung
 
-Um das Verhältnis zwischen den beiden Szenarien zu verstehen, betrachten wir die
+Um das Verhältnis zwischen den beiden Thread-Varianten zu verstehen, betrachten wir die
 Verhältnisse der jeweiligen Werte:
 
 ### Varianz
@@ -18,7 +18,7 @@ $$
 $$
 
 Das Verhältnis beträgt etwa 1,355. Das bedeutet, dass die Varianz in "VirtualThreads" etwa
-1,355-mal größer ist als die Varianz im "normalen" Szenario.
+1,355-mal größer ist als die Varianz bei Platform Threads.
 
 ### Standardabweichung
 
@@ -28,9 +28,9 @@ $$
 $$
 
 Das Verhältnis beträgt etwa 1,163. Das bedeutet, dass die Standardabweichung in "VirtualThreads"
-etwa 1,163-mal größer ist als die Standardabweichung im "normalen" Szenario. In beiden Fällen
+etwa 1,163-mal größer ist als die Standardabweichung bei Platform Threads. In beiden Fällen
 ist das Verhältnis größer als 1, was darauf hinweist, dass die Streuung in "VirtualThreads"
-im Vergleich zu "normal" größer ist, sei es in Bezug auf Varianz oder Standardabweichung.
+im Vergleich zu Platform Threads größer ist, sei es in Bezug auf Varianz oder Standardabweichung.
 
 |                      | avg    | min  | med   | max    | p(90) | p(95) | Anzahl Requests | Req/s      |
 | -------------------- | ------ | ---- | ----- | ------ | ----- | ----- | --------------- | ---------- |
@@ -46,23 +46,23 @@ Implementierungen und denen, die Virtual Threads nutzen.
 Im Praxisbeispiel zeigt sich, dass die Virtual Threads leicht verbesserte durchschnittliche
 Antwortzeiten aufweisen. Dennoch fällt eine signifikante Streuung auf, insbesondere durch die
 deutlich höhere maximale Antwortzeit von 29190 Millisekunden im Vergleich zu 8640 Millisekunden
-bei der normalen Implementierung. Diese Unterschiede werden auch durch die Analyse der Perzentile
+bei der klassischen Implementierung mit Platform Threads. Diese Unterschiede werden auch durch die Analyse der Perzentile
 verdeutlicht. Das 90. Perzentil (p(90)) bei den Virtual Threads beträgt 1530 Millisekunden,
 während es bei der normalen Implementierung 1740 Millisekunden beträgt. Das 95. Perzentil (p(95))
-liegt bei Virtual Threads bei 2230 Millisekunden im Vergleich zu 2000 Millisekunden bei der
-normalen Implementierung. Diese Werte zeigen, dass die Virtual Threads in einigen Fällen
+liegt bei Virtual Threads bei 2230 Millisekunden im Vergleich zu 2000 Millisekunden bei der 
+Implementierung mit Platform Threads. Diese Werte zeigen, dass die Virtual Threads in einigen Fällen
 konsistente, niedrigere Antwortzeiten bieten, aber auch dazu neigen, Ausreißer mit höheren
 Antwortzeiten zu haben.
 
 Im Minimalbeispiel hingegen sind die Antwortzeiten generell niedrig, und die Unterschiede
-zwischen den Implementierungen (normal und Virtual Threads) sind weniger ausgeprägt. Die
+zwischen den Implementierungen (Platform Threads und Virtual Threads) sind weniger ausgeprägt. Die
 Perzentile verdeutlichen hier ebenfalls die konsistente Leistung beider Implementierungen.
 Das 90. Perzentil (p(90)) und das 95. Perzentil (p(95)) der Virtual Threads
-(5,28 bzw. 8,8 Millisekunden) sind vergleichbar mit den Werten der normalen Implementierung
+(5,28 bzw. 8,8 Millisekunden) sind vergleichbar mit den Werten der Platform Threads Implementierung
 (5,34 bzw. 8,53 Millisekunden).
 
 Zusammenfassend lässt sich sagen, dass die Virtual Threads in einigen Szenarien leicht verbesserte
-durchschnittliche Antwortzeiten bieten können. Jedoch sollte die Entscheidung zwischen normalen
+durchschnittliche Antwortzeiten bieten können. Jedoch sollte die Entscheidung zwischen Platform
 Threads und Virtual Threads sorgfältig abgewogen werden, unter Berücksichtigung der spezifischen
 Anforderungen, der Performance-Ziele und der Toleranz gegenüber möglichen Ausreißern in den
 Antwortzeiten.
