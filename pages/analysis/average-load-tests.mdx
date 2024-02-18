@@ -5,7 +5,7 @@ authorGithubName: hrothc
 
 # Durchschnittliche Lasttests
 
-## Inhalt
+## Inhalt 
 
 - [Einführung](/analysis/average-load-tests#einführung)
 - [Minimalistisches Beispiel ohne Datenbank](/analysis/average-load-tests/evaluation-approach)
@@ -15,7 +15,7 @@ authorGithubName: hrothc
   - [Verhältnis Varianz und der Standardabweichung](/analysis/average-load-tests/comparison#verhältnis-varianz)
 - [Ergebnisauswertung](/analysis/average-load-tests/results)
 
-## Einführung
+## Einführung [^1]
 
 Neben dem Minimalistic Beispiel wurde noch ein weiteres Beispiel auf Virtuelle Threads umgestellt, welches im Folgenden auch als Praxisbeispiel betitelt wird. Die Anwendung besteht aus einem modularen Architekturansatz, der auf drei Microservices basiert.
 Der erste Service, der UserManagement-Service, ermöglicht es Benutzern, sich zu registrieren und anzumelden.
@@ -60,3 +60,7 @@ verwendet, um eindeutige Anmeldeinformationen und zufällige Wartezeiten zu gene
 Averageloadtest simuliert realistische Nutzungszenarien und überprüft dabei die Systemleistung
 unter steigender Belastung. Ergebnisse und Statuscodes der Anfragen werden überwacht, um
 sicherzustellen, dass die Anwendung unter verschiedenen Bedingungen robust und effizient arbeitet.
+
+[^1]:
+    https://grafana.com/load-testing/types-of-load-testing/, Grafana Labs,
+    letzter Zugriff am 05.01.24
