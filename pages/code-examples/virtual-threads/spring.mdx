@@ -8,7 +8,7 @@ authorGithubName: aleeexx
 ### Vor Version 3.2 [^1]
 
 Um Virtual Threads vor Spring 3.2 zu aktivieren, muss die Main-Klasse der Anwendung
-(Enthält Aufruf von `SpringApplication#run` [^2]) angepasst werden. Hierfür werden zwei Methodenaufrufe benötigt.
+(Enthält Aufruf von `SpringApplication#run`) angepasst werden. Hierfür werden zwei Methodenaufrufe benötigt.
 
 ```java
 @SpringBootApplication
@@ -36,7 +36,7 @@ Zum einen, um Spring mitzuteilen, dass jeder Aufruf der Funktionen, welche mit d
 einen eigenen Virtual Thread erhält. Zum anderen, um Tomcat mitzuteilen, dass pro eingehendem Request ein neuer
 Virtual Thread erstellt werden soll.
 
-### Seit Version 3.2 [^3]
+### Seit Version 3.2 [^2]
 
 Um virtuelle Threads ab Spring 3.2 zu aktivieren, muss lediglich eine Eigenschaft in der
 Datei `application.yml` beziehungsweise `application.properties` festgelegt werden:
@@ -64,5 +64,4 @@ Durch das Aktivieren dieser Option werden automatisch folgende Features aktivier
 <br></br>
 
 [^1]: Siehe https://spring.io/blog/2022/10/11/embracing-virtual-threads/
-[^2]: Siehe https://git.fh-muenster.de/fep-23-threaktive/fep_minimalistic/-/blob/feature/with-database/Virtual_Minimalistic_Microservice/src/main/java/com/example/gateway/GatewayApplication.java?ref_type=heads
-[^3]: Siehe https://spring.io/blog/2023/09/09/all-together-now-spring-boot-3-2-graalvm-native-images-java-21-and-virtual/#spring-boot-32
+[^2]: Siehe https://spring.io/blog/2023/09/09/all-together-now-spring-boot-3-2-graalvm-native-images-java-21-and-virtual/#spring-boot-32
