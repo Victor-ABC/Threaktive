@@ -15,7 +15,7 @@ authorGithubName: hrothc
   - [Verhältnis Varianz und der Standardabweichung](/analysis/average-load-tests/comparison#verhältnis-varianz)
 - [Ergebnisauswertung](/analysis/average-load-tests/results)
 
-## Einführung [^1]
+## Einführung 
 
 Neben dem Minimalistic Beispiel wurde noch ein weiteres Beispiel auf Virtuelle Threads umgestellt, welches im Folgenden auch als Praxisbeispiel betitelt wird. Die Anwendung besteht aus einem modularen Architekturansatz, der auf drei Microservices basiert.
 Der erste Service, der UserManagement-Service, ermöglicht es Benutzern, sich zu registrieren und anzumelden.
@@ -37,7 +37,7 @@ Preisen für Produkte. Durch die Verwendung von Microservices, RabbitMQ und Post
 und leicht erweiterbare Architektur geschaffen.
 
 Es wurden Lasttests unter Verwendung des k6-Frameworks durchgeführt, wobei das Prinzip des Durchschnittlichen
-Lasttests angewandt wurde. Hierbei wurden 100 virtuelle Benutzer (VU) über einen Zeitraum von 40 Minuten
+Lasttests angewandt wurde.[^1] Hierbei wurden 100 virtuelle Benutzer (VU) über einen Zeitraum von 40 Minuten
 simuliert. In diesem Kontext wurden die beiden Szenarien getestet: ein kleines, minimalistisches Beispiel,
 welches lediglich simple Datenbankabfragen durchführt, sowie das umfangreichere Praxisbeispiel, das näher an
 praktischen Anwendungen liegt und neben Datenbanken auch Elemente wie RabbitMQ und Tokenhandling einschließt.
@@ -58,7 +58,7 @@ Benutzern, während die Hauptfunktionen verschiedene Aktionen auf der Einkaufsli
 wie das Abrufen, Hinzufügen, Aktualisieren und Löschen von Elementen. Zusätzlich werden Hilfsfunktionen
 verwendet, um eindeutige Anmeldeinformationen und zufällige Wartezeiten zu generieren. Der
 Averageloadtest simuliert realistische Nutzungszenarien und überprüft dabei die Systemleistung
-unter steigender Belastung. Ergebnisse und Statuscodes der Anfragen werden überwacht, um
+unter steigender Belastung.[^1] Ergebnisse und Statuscodes der Anfragen werden überwacht, um
 sicherzustellen, dass die Anwendung unter verschiedenen Bedingungen robust und effizient arbeitet.
 
 [^1]:
