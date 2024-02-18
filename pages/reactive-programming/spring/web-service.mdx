@@ -1,0 +1,118 @@
+---
+authorName: Alexander Euler
+authorGithubName: aleeexx
+---
+
+# Web Service
+
+## Abhängigkeiten
+
+Für die Erstellung von Webanwendungen, einschließlich einer RESTful API, kann das `spring-boot-starter-web`
+-Starterpaket verwendet werden. Dieses Starterpaket verwendet Tomcat als standardmäßig eingebetteten Container.
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+```
+
+Soll die reaktive Variante der Webanwendung verwendet werden, so kann das `spring-boot-starter-webflux`
+-Starterpaket verwendet werden. Dieses Starterpaket verwendet Netty als standardmäßig eingebetteten Container.
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-webflux</artifactId>
+</dependency>
+```
+
+**Web Client**
+
+Um externe APIs zu konsumieren, kann das z.B. der OpenFeign-Client verwendet werden. Dieser kann
+mit dem `spring-cloud-starter-openfeign`-Starterpaket verwendet werden.
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+</dependency>
+```
+
+Soll die Anwendung reaktive werden, so kann der `WebClient` aus dem oben genannten Paket
+`spring-boot-starter-webflux` verwendet werden. Dieser ist reaktiv und kann demnach asynchron
+in die Anwendung integriert werden.
+
+## Verwendung
+
+### Initialisierung einer RESTful API
+
+Um unsere Spring Boot Webanwendung darauf zu konfigurieren, dass sie eine reaktive RESTful API bereitstellt,
+müssen wir die Klasse, die die Hauptmethode enthält, mit der `@EnableWebFlux`-Annotation[^1] versehen.
+
+```java
+@SpringBootApplication
+@EnableWebFlux
+public class MyApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApplication.class, args);
+    }
+}
+```
+
+### Controller
+
+```java
+@RestController
+@RequestMapping("/student")
+public class StudentController {
+    private final StudentRepository studentRepository;
+
+    @Autowired
+    public StudentController(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
+    @GetMapping()
+    public StudentDto getStudent(@RequestParam Integer id) {
+        var student = studentRepository.findOneById(id);
+
+        if (student.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        else {
+            return new StudentDto(student.get());
+        }
+    }
+
+    ...
+}
+
+```
+
+```java
+@RestController
+@RequestMapping("/student")
+public class StudentController {
+    private final StudentRepository studentRepository;
+
+    @Autowired
+    public StudentController(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
+    @GetMapping()
+    public Mono<StudentDto> getStudent(@RequestParam Integer id) {
+        return studentRepository
+                .findOneById(id)
+                .switchIfEmpty(Mono.defer(() -> Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND))))
+                .map(StudentDto::new);
+    }
+
+    ...
+}
+```
+
+[^1]:
+    Siehe https://docs.spring.io/spring-framework/reference/web/webflux/config.html,
+    letzter Zugriff am https://docs.spring.io/spring-framework/reference/web/webflux/config.html

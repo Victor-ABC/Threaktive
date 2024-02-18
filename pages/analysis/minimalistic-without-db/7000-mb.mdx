@@ -31,7 +31,7 @@ deshalb wie folgt: Es wird zweimal für jeweils 500 Millisekunden gewartet.
 />
 
 Ab 500 Virtuellen Usern erhöht sich die durchschnittliche Antwortzeit der Requests. Dies lässt sich darauf
-zurückführen, dass Tomcat bzw. das Spring-Boot-Backend eintreffende Requests so lange in einer Warteschlange
+zurückführen, dass Tomcat bzw. das Spring-Backend eintreffende Requests so lange in einer Warteschlange
 zwischenspeichert, bis ein freier Platform-Thread die Anfrage annehmen kann. Ein Maximaler Durchsatz wird
 hier bei 1000 Virtuellen Usern bei ca. 9000 Requests in 50 Sekunden erreicht. RAM und CPU sind beide fast
 gar nicht in verwendung.

@@ -1,0 +1,110 @@
+---
+authorName: Alexander Euler
+authorGithubName: aleeexx
+---
+
+# Datenbank
+
+## Abhängigkeiten
+
+Üblicherweise verwenden Spring Anwendungen einen Datenbank, um Daten zu persistieren. Soll die herkömmliche,
+blockierende Variante der Datenbankanbindung verwendet werden, so kann in einer Spring Boot Anwendung das
+`spring-boot-starter-data-jpa`-Starterpaket verwendet werden. Darüber hinaus wird ein Treiber für die
+verwendete Datenbank benötigt, in diesem Fall PostgreSQL.
+
+```xml
+<!-- Spring Boot starter package for using JPA -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+
+<!-- Driver for accessing a PosgreSQL database -->
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+</dependency>
+```
+
+Soll die reaktive Variante der Datenbankanbindung verwendet werden, müssen entsprechende Abhängigkeiten
+hinzugefügt werden. Im Folgenden wird exemplarisch gezeigt, welche Abhängigkeiten für eine reaktive
+verwendet werden können.
+
+```xml
+<!-- Spring Boot starter package for using R2DBC -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-r2dbc</artifactId>
+</dependency>
+
+<!-- Driver for reactively accessing a PosgreSQL database -->
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>r2dbc-postgresql</artifactId>
+</dependency>
+
+<!-- For entity annotations as these were available via jpa -->
+<dependency>
+    <groupId>org.springframework.data</groupId>
+    <artifactId>spring-data-commons</artifactId>
+</dependency>
+```
+
+## Konfiguration
+
+In einer Spring Boot Anwendung kann die Datenbankanbindung über die `application.properties`-Datei konfiguriert werden.
+Im Folgenden wird exemplarisch gezeigt, wie eine PostgreSQL-Datenbank konfiguriert werden kann.
+
+```properties
+spring.r2dbc.url=r2dbc:postgresql://myPSQLInstance:5432/myDatabase
+spring.r2dbc.username=myUsername
+spring.r2dbc.password=myPassword
+```
+
+## Verwendung
+
+### Repository
+
+Am Beispiel einer Student-Entität und einem blockierenden Student-JPA-Repository, das die Datenbankanbindung übernimmt,
+kann das `StudentRepository` wie folgt aussehen:
+
+```java
+package com.example.myapplication.model;
+
+import java.util.Optional;
+
+public interface StudentRepository {
+    Optional<Student> findById(Integer id);
+    Student save(Student student);
+}
+```
+
+Das `StudentJpaRepository` implementiert das `StudentRepository` und erweitert das `JpaRepository` von Spring Data JPA,
+um die Standardmethoden für das Speichern und Abrufen von Entitäten bereitzustellen.
+
+```java
+package com.example.myapplication.outbound;
+
+import com.example.gateway.model.Student;
+import com.example.gateway.model.StudentRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface StudentJpaRepository extends JpaRepository<Student, Integer>, StudentRepository {}
+```
+
+Wollen wir die reaktive Variante verwenden, so kann das `StudentRepository` das `ReactiveCrudRepository`
+als Alternative zum `JpaRepository` erweitern.
+
+```java
+package com.example.gateway.outbound;
+
+import com.example.gateway.model.Student;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import reactor.core.publisher.Mono;
+
+public interface StudentRepository extends ReactiveCrudRepository<Student, Integer> {
+    Mono<Student> findOneById(Integer id);
+}
+```

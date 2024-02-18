@@ -3,11 +3,11 @@ authorName: Alexander Euler
 authorGithubName: aleeexx
 ---
 
-## Spring Boot
+## Spring
 
 ### Vor Version 3.2 [^1]
 
-Um Virtual Threads vor Spring Boot 3.2 zu aktivieren, muss die Main-Klasse der Anwendung
+Um Virtual Threads vor Spring 3.2 zu aktivieren, muss die Main-Klasse der Anwendung
 (Enthält Aufruf von `SpringApplication#run` [^2]) angepasst werden. Hierfür werden zwei Methodenaufrufe benötigt.
 
 ```java
@@ -38,7 +38,7 @@ Virtual Thread erstellt werden soll.
 
 ### Seit Version 3.2 [^3]
 
-Um virtuelle Threads ab Spring Boot 3.2 zu aktivieren, muss lediglich eine Eigenschaft in der
+Um virtuelle Threads ab Spring 3.2 zu aktivieren, muss lediglich eine Eigenschaft in der
 Datei `application.yml` beziehungsweise `application.properties` festgelegt werden:
 
 ```yaml
