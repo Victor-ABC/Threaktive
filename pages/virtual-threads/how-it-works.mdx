@@ -14,7 +14,7 @@ Entwicklung wird es nicht verwendet. Eine wichtige Änderung ist das pro Aufgabe
 gestartet wird und nicht mehr, wie bei den Platform Threads, wo ein Executor Service eine bestimmte
 Anzahl von Platform Threads hatte und diese nach und nach die anstehenden Aufgaben abzuarbeiten.
 Eine Aufgabe auf einem virtuellen Thread wird gestartet, indem die Methode `run` auf dem Objekt
-`Continuation` ausgeführt wird. Um den weiteren Ablauf besser zu verstehen, hilft Abbildung x.
+`Continuation` ausgeführt wird. Um den weiteren Ablauf besser zu verstehen, hilft Abbildung 1.
 Ein virtueller Thread wird auf einem Platform Thread (auch genannt `Carrier Thread`) ausgeführt.
 Es gibt drei verschiedene Zustände von einem virtuellen Thread. Der erste Zustand ist der `"mounted"`,
 der virtuelle Thread wird auf dem Platform Thread ausgeführt. Der zweite Zustand ist der `"unmounted blocked"`,
@@ -25,7 +25,7 @@ Zudem wurden alle wichtigen Informationen aus dem Heap Speicher geladen und die 
 <ScalableImage
   src="/images/os_vt_handling.png"
   alt="Betriebssystem Handling mit Virtual Threads"
-  description="Abbildung X - Quelle: https://jenkov.com/tutorials/java-concurrency/java-virtual-threads.html"
+  description="Abbildung 1 - Quelle: https://jenkov.com/tutorials/java-concurrency/java-virtual-threads.html"
 />
 
 Wenn die Aufgabe ausgeführt wird (nachdem die Methode run ausgeführt wurde) und einen blockierenden Aufruf ausgeführt hat
@@ -40,7 +40,7 @@ Das ist der Kreislauf der virtuellen Threads, dieser wird von der JVM verwaltet.
 gegenüber den Platform Threads, dieser werden vom Betriebssytem verwaltet. Wenn ein Platform Thread erstellt werden soll,
 muss ein Systemaufruf ans Betriebssystem gestellt werden. Dieser Aufruf ist sehr kostenintensiv, das fällt beim virtuellen Thread weg.  
 Das Objekt `Continuation` ist in einer Low-Level-API die von einem Entwickler standardmäßig nicht verwendet wird,
-diese kann aber wie in Abbildung x zum Experimentieren und besserem verstehen verwendet werden.
+diese kann aber wie im nachfolgenden Java-Code zum Experimentieren und besserem verstehen verwendet werden.
 
 ```java
 var scope = new ContinuationScope("C1");
