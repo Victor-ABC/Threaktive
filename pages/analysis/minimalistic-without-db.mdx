@@ -10,7 +10,7 @@ authorGithubName: victorcorbet
 - [Weniger Ressourcen - 400MB RAM](/analysis/minimalistic-without-db/400-mb)
 - [Mehr Ressourcen - 7000MB RAM](/analysis/minimalistic-without-db/7000-mb)
 
-## Einführung
+## Einführung [^1]
 
 In diesem Abschnitt werden die Ergebnisse von Lasttests vorgestellt, in welchen die Services
 keine echten Aufgaben erledigen, sondern vorrangig eine gewisse Zeit abwarten, bevor die HTTP-Antwort
@@ -19,3 +19,5 @@ Komponenten ausgestattet ist: CPU: AMD RYZEN 9 3900x mit 12 Kernen, RAM: 32 GB D
 Grafikkarte: NVIDIA GeForce GTX 1650. Die Anwendungen selbst wurden in Docker-Containern mit
 festen Ressourcenzuweisungen (zum Beispiel 400 MB RAM und 8 CPU-Kerne) gestartet, und die Tests
 wurden über einen längeren Zeitraum durchgeführt, um etwaige Störungen zu minimieren.
+
+[^1]: https://www.docker.com/, letzter Zugriff am 18.02.2024

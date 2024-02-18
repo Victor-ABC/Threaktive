@@ -3,7 +3,7 @@ authorName: Victor Corbet
 authorGithubName: victorcorbet
 ---
 
-# Einleitung
+# Einleitung [^1] [^2]
 
 In diesem Abschnitt werden die Resultate der durchgeführten Lasttests erläutert.
 Ein Lasttest ist ein Softwaretest, der eine in der Regel erhebliche Last auf die Anwendung
@@ -18,18 +18,18 @@ um die Lastbewältigung überhaupt testen zu können. Die Prüftechnik ist dynam
 ein Lasttest niemals ausschließlich anhand des Quellcodes durchgeführt werden kann, im Gegensatz zu
 anderen Testverfahren wie beispielsweise der statischen Codeanalyse.
 
-## Webservice
+## Webservice [^3] [^4] [^5] [^6]
 
 Die zu testende Anwendung ist ein RESTful Webservice, welcher mit der Programmiersprache
 Java und dem Spring Boot Framework immer jeweils in drei Varianten entwickelt wird.
-Dabei wird der Webservice einmal unter Verwendung von Java Plattform Threads (Thread-per-Request-Ansatz),
+Dabei wird der Webservice einmal unter Verwendung von Java Platform Threads (Thread-per-Request-Ansatz),
 einmal mit Virtual Threads (Virtual Thread-per-Request-Ansatz) und einmal reaktiv implementiert.
 Bei der reaktiven Variante kamen das non-blocking I/O (NIO) Framework Netty sowie Spring Webflux zum Einsatz.
 Für die Erfassung des Ressourcenverbrauchs der Plattform wurde ein REST-Endpunkt mittels der Bibliothek
 Spring Boot Actuator implementiert. Dieser Endpunkt gibt auf Anfrage die aktuelle Zeit sowie Kennzahlen
 wie CPU-Verbrauch, Freier-RAM, belegter RAM, Größe des HEAP etc. zurück.
 
-## Testtool
+## Testtool [^7]
 
 In dieser Arbeit wird K6 als Test-Framework verwendet. K6 ist ein Open-Source-Tool, das für
 die Durchführung von Lasttests entwickelt wurde. Es ermöglicht Entwicklern und Qualitätssicherungsteams,
@@ -80,3 +80,12 @@ für die Visualisierungskomponente verwendet.
     allowFullScreen
   ></iframe>
 </div>
+
+
+[^1]: https://www.blazemeter.com/blog/performance-testing-vs-load-testing-vs-stress-testing, letzter Zugriff am 18.02.2024
+[^2]: https://grafana.com/blog/2024/01/30/average-load-testing/, letzter Zugriff am 18.02.2024
+[^3]: https://spring.io/projects/spring-boot, letzter Zugriff am 18.02.2024
+[^4]: https://openjdk.org/projects/loom/, letzter Zugriff am 18.02.2024
+[^5]: https://netty.io/, letzter Zugriff am 18.02.2024
+[^6]: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator, letzter Zugriff am 18.02.2024
+[^7]: https://k6.io/, letzter Zugriff am 18.02.2024
