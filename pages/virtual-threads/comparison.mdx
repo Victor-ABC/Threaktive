@@ -19,14 +19,14 @@ nicht leichtgewichtet und ist durch den Arbeitsspeicher in der Anzahl limitiert.
 liegt bei ca. 1ms und der Aufruf wird per Systemaufruf ans Betriebssystem adressiert. Die maximale
 Größe des Stacks in der Default-Einstellung liegt bei 2 MB pro Betriebssystem Thread. Der Kontextwechsel
 ist der Vorgang, bei dem die Bearbeitung des aktuellen Threads unterbrochen wird und zu einem anderen
-Thread zur Bearbeitung gewechselt ist. Diese Zeit liegt ca. bei 100μs. In der Abbildung x ist das „Mapping“
+Thread zur Bearbeitung gewechselt ist. Diese Zeit liegt ca. bei 100μs. In der Abbildung 1 ist das „Mapping“
 der Platform Threads zu den Betriebssystem Threads zu sehen.
 
 <ScalableImage
   fullWidth
   src="/images/thread_mapping.png"
   alt="Mapping: Platform Threads zu Betriebssystem Threads"
-  description="Abbildung X - Quelle: Eigene Anfertigung"
+  description="Abbildung 1 - Quelle: Eigene Anfertigung"
 />
 
 Bei den virtuellen Threads ist das „Mapping“ geändert worden, um zeitliche Vorteile im Durchsatz
@@ -37,13 +37,13 @@ verwaltet das mouting bzw. unmouting der virtuellen Threads, anders als bei den 
 das Scheduling wird vom Betriebssystem übernommen. Die virtuellen Threads sind sehr leichtgewichtet
 und es können sehr viele gestartet werden (über 1.000.000 – liegt an der Hardware), deshalb wird pro
 Aufgabe ein neuer virtueller Thread erstellt. Ein Virtual Thread ist um mehr als das 1000 fache
-leichtgewichtiger als ein Platform Thread. Das Mapping der virtuellen Threads ist in Abbildung x zu sehen.
+leichtgewichtiger als ein Platform Thread. Das Mapping der virtuellen Threads ist in Abbildung 2 zu sehen.
 
 <ScalableImage
   fullWidth
   src="/images/virtual_thread_mapping.png"
   alt="Mapping: Platform Threads zu Betriebssystem Threads"
-  description="Abbildung X - Quelle: Eigene Anfertigung"
+  description="Abbildung 2 - Quelle: Eigene Anfertigung"
 />
 
 ## Vor- und Nachteile [^3] [^4]
