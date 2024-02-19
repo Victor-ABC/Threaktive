@@ -61,3 +61,14 @@ pre code .line:hover {
 .dark svg {
   fill: white;
 }
+
+.flex-switch-rtc {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+  .flex-switch-rtc {
+    flex-direction: row;
+  }
+}

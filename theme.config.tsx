@@ -104,7 +104,7 @@ const config: DocsThemeConfig = {
                 style={{
                   borderRadius: "50%",
                   height: "3em",
-                  aspectRatio: "1 / 1",
+                  width: "3em",
                 }}
                 src={`https://github.com/${authorGithubName}.png`}
               />
@@ -135,7 +135,7 @@ const config: DocsThemeConfig = {
             </div>
           </div>
         )}
-        <p>
+        <p style={{ maxWidth: "50%" }}>
           Zuletzt aktualisiert am{" "}
           {new Intl.DateTimeFormat("de", { dateStyle: "long" }).format(timestamp)}
         </p>
