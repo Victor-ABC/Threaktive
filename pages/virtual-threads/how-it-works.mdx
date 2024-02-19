@@ -58,7 +58,7 @@ while (!c.isDone()) {
 }
 ```
 
-Das Beispiel kann für Einsteiger von virtuellen Threads einen Moment dauern, bis dieses Beispiel verstanden wird.
+Das Beispiel kann für Einsteiger von virtuellen Threads einen Moment dauern, bis dies verstanden wird.
 Die Ausgabe von diesem Code sieht so aus:
 
 ```
@@ -71,7 +71,7 @@ End run()
 ```
 
 In der `while`-Schleife wird zuerst das `"Start run()"` ausgegeben, danach wird die Methode `run()` des `Continuation`
-Objekts ausgeführt. Aus diesem Grund wird dann `"Start C12"` ausgegeben. Anschließend wird die Methode `yield()`
+Objekts ausgeführt. Aus diesem Grund wird dann `"Start C1"` ausgegeben. Anschließend wird die Methode `yield()`
 des `Continuation` Objekts ausgeführt und es wird angehalten. Die `while`-Schleife wird deshalb
 weiter ausgeführt und es wird gewartet bis die Methode `run()` wieder auf dem `Continuation` Objekt aufgerufen
 wird. In dieser Zeit wird `"End run()"` und `"Start run()"` ausgegeben. Danach wird die Variable `c` an der
