@@ -10,9 +10,9 @@ import ScalableImage from "../../components/scalable-image/scalable-image"
 Einen wichtigen Part hat das spezielle Objekt `Continuation` mit deren Methoden für die Umsetzung
 und der Verwaltung der virtuellen Threads. Aus der Sicht eines Entwicklers wird dieser mit dem Objekt
 keine direkten Berührungspunkte haben, diese werden „unter der Haube“ ausgeführt, in der produktiven
-Entwicklung wird es nicht verwendet. Eine wichtige Änderung ist das pro Aufgabe ein virtueller Thread
-gestartet wird und nicht mehr, wie bei den Platform Threads, wo ein Executor Service eine bestimmte
-Anzahl von Platform Threads hatte und diese nach und nach die anstehenden Aufgaben abzuarbeiten.
+Entwicklung wird es nicht verwendet. Eine signifikante Änderung besteht darin, dass für jede Aufgabe ein eigener virtueller Thread gestartet wird,
+im Gegensatz zu der vorherigen Methode mit Platform Threads, bei der ein Executor Service eine festgelegte Anzahl von Platform Threads verwaltete,
+die sukzessive anstehende Aufgaben bearbeiteten.
 Eine Aufgabe auf einem virtuellen Thread wird gestartet, indem die Methode `run` auf dem Objekt
 `Continuation` ausgeführt wird. Um den weiteren Ablauf besser zu verstehen, hilft Abbildung 1.
 Ein virtueller Thread wird auf einem Platform Thread (auch genannt `Carrier Thread`) ausgeführt.
