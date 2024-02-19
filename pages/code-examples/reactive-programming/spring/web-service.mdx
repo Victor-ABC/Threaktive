@@ -48,7 +48,7 @@ in die Anwendung integriert werden.
 ### Initialisierung einer RESTful API
 
 Um unsere Spring Boot Webanwendung darauf zu konfigurieren, dass sie eine reaktive RESTful API bereitstellt,
-müssen wir die Klasse, die die Hauptmethode enthält, mit der `@EnableWebFlux`-Annotation[^1] versehen.
+müssen wir die Klasse, welche die Hauptmethode enthält, zusätzlich mit der `@EnableWebFlux`-Annotation[^1] versehen.
 
 ```java
 @SpringBootApplication
@@ -61,6 +61,8 @@ public class MyApplication {
 ```
 
 ### Controller
+
+#### Vorher
 
 ```java
 @RestController
@@ -89,6 +91,8 @@ public class StudentController {
 }
 
 ```
+
+#### Nachher
 
 ```java
 @RestController

@@ -1,0 +1,193 @@
+---
+authorName: Alexander Euler
+authorGithubName: aleeexx
+---
+
+# RabbitMQ
+
+## Abhängigkeiten
+
+Bei Kommunikation mit Messages innerhalb einer Anwendung über eine Queue wie mit RabbitMQ - z.B. zwischen
+verschiedenen Microservices - kann das `spring-boot-starter-stream-rabbit`-Starterpaket verwendet.
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+</dependency>
+
+<!-- Alternatively, you can use the less optionated amqp starter -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-amqp</artifactId>
+</dependency>
+```
+
+Soll die reaktive Variante der Kommunikation über RabbitMQ verwendet werden, so kann stattdessen das
+`spring-cloud-starter-stream-rabbit`-Starterpaket verwendet werden.
+
+```xml
+<groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-amqp</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>io.projectreactor.rabbitmq</groupId>
+    <artifactId>reactor-rabbitmq</artifactId>
+</dependency>
+```
+
+## Konfiguration
+
+Die Konfiguration für die Kommunikation wurde RabbitMQ kann in der `application.properties`-Datei vorgenommen.
+Die Konfiguration für die blockierende Variante der Kommunikation über RabbitMQ kann wie folgt aussehen.
+
+```properties
+spring.cloud.stream.bindings.eventConsumer-in-0.destination=my.events
+spring.cloud.stream.bindings.eventConsumer-in-0.binder=cloud_rabbit
+spring.cloud.stream.binders.cloud_rabbit.type=rabbit
+spring.cloud.stream.binders.cloud_rabbit.environment.spring.rabbitmq.host=rabbitmq
+spring.cloud.stream.binders.cloud_rabbit.environment.spring.rabbitmq.port=5672
+spring.cloud.stream.binders.cloud_rabbit.environment.spring.rabbitmq.username=guest
+spring.cloud.stream.binders.cloud_rabbit.environment.spring.rabbitmq.password=guest
+```
+
+Die Konfiguration für die reaktive Variante der Kommunikation über RabbitMQ kann wie folgt aussehen.
+
+```properties
+spring.rabbitmq.host=rabbitmq
+spring.rabbitmq.port=5672
+spring.rabbitmq.username=guest
+spring.rabbitmq.password=guest
+```
+
+## Verwendung
+
+### Sender
+
+Um Events zu versenden lag im Beispielprojekt folgender Code vor. Sobald sich ein User im
+User-Mircoservice registriert, wurde ein UserRegisteredEvent versendet.
+Ein blockierender EventPublisher wurde in einem Service verwendet, um diese Messages zu versenden.
+
+```java
+@Component
+public class EventPublisherImpl implements EventPublisher {
+    private StreamBridge streamBridge;
+
+    @Autowired
+    public EventPublisherImpl(StreamBridge streamBridge) {
+        this.streamBridge = streamBridge;
+    }
+
+    @Override
+    public boolean publishEvent(UserRegisteredEvent event) {
+        var successfullyPublished = streamBridge.send("eventPublisher-out-0", event);
+        if (!successfullyPublished) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+
+        return successfullyPublished;
+   }
+}
+```
+
+Nach der Umstellung auf die reaktive Variante der Kommunikation über RabbitMQ, wurde der
+EventPublisher im User-Service wie folgt angepasst. Der Rückgabetyp wurde von `boolean` auf
+`Mono<boolean>` geändert. Statt des StreamBridge wurde der Sender[^1] von Reactor RabbitMQ[^2]
+verwendet. Statt einem simplen Event wurde ein OutboundMessage-Objekt von Reactor RabbitMQ
+verwendet, welches u.a. die Queue und die Message als Byte-Array enthält. Der Sender wurde
+verwendet, um die OutboundMessage zu senden und anschließend mittels Operatoren darauf zu reagieren.
+
+```java
+@Component
+public class EventPublisherImpl {
+    private final Sender sender;
+    private String queueName = "demo-queue";
+
+    @Autowired
+    EventPublisherImpl(Sender sender) {
+        this.sender = sender;
+    }
+
+    public Mono<boolean> sendMessage(User user, String inviteCode) {
+        UserRegisteredEvent event = new UserRegisteredEvent(user, inviteCode);
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            byte[] eventBytes = objectMapper.writeValueAsBytes(event);
+
+            Mono<OutboundMessage> outboundMono = Mono.just(new OutboundMessage(
+                "",
+                queueName,
+                eventBytes
+            ));
+
+            return sender
+                .send(outboundMono)
+                .doOnTerminate(() -> { /* ... */ })
+                .thenReturn(true);
+        } catch (Exception e) {
+            return Mono.error(e);
+        }
+    }
+}
+```
+
+### Consumer
+
+Ein blockierender EventConsumer wurde beispielsweise in einem Service des ShoppingList-Mircoservice
+verwendet, um diese oben genannten UserRegisteredEvent-Messages des User-Microservice zu
+konsumieren, verarbeiten und darauf zu reagieren.
+
+```java
+@Component
+public class EventConsumer implements Consumer<Message<UserRegisteredEvent>> {
+    @Override
+    public void accept(Message<UserRegisteredEvent> message) {
+        var userRegisteredEvent = message.getPayload();
+
+        // ...
+    }
+}
+```
+
+Der EventConsumer im ShoppingList-Service wurde wie folgendermaßen angepasst. Der Rückgabetyp
+wurde von `void` auf `Mono<Void>` geändert. Statt des Consumer-Interfaces wurde die
+`@RabbitListener`-Annotation verwendet, um auf die Messages zu reagieren. Die Message wurde
+als Byte-Array entgegengenommen und anschließend mittels ObjectMapper in ein UserRegisteredEvent
+umgewandelt.
+
+```java
+@Configuration
+@EnableRabbit
+public class EventConsumer {
+    @RabbitListener(queues = "demo-queue")
+    public Mono<Void> handleMessage(Message<byte[]> message) {
+        try {
+            byte[] userRegisteredEventByteArray = message.getPayload();
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            UserRegisteredEvent userRegisteredEvent = objectMapper.readValue(
+                userRegisteredEventByteArray,
+                UserRegisteredEvent.class
+            );
+
+            // ...
+
+        } catch (Exception e) {}
+
+        return Mono.empty();
+    }
+}
+```
+
+[^1]:
+    Siehe https://projectreactor.io/docs/rabbitmq/snapshot/api/reactor/rabbitmq/OutboundMessage.html,
+    letzter Zugriff am 17.02.2024
+
+[^2]:
+    Siehe https://projectreactor.io/docs/rabbitmq/snapshot/reference/,
+    letzter Zugriff am 17.02.2024
+
+[^3]:
+    Siehe https://projectreactor.io/docs/rabbitmq/snapshot/api/reactor/rabbitmq/Sender.html,
+    letzter Zugriff am 17.02.2024

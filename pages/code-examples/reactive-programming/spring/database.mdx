@@ -56,6 +56,16 @@ In einer Spring Boot Anwendung kann die Datenbankanbindung über die `applicatio
 Im Folgenden wird exemplarisch gezeigt, wie eine PostgreSQL-Datenbank konfiguriert werden kann.
 
 ```properties
+spring.datasource.url=jdbc:postgresql://myPSQLInstance:5432/myDatabase
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.username=myUsername
+spring.datasource.password=myPassword
+```
+
+Soll die reaktive Variante der Datenbankanbindung verwendet werden, so kann die Konfiguration bei
+Verwendung von R2DBC wie folgt aussehen.
+
+```properties
 spring.r2dbc.url=r2dbc:postgresql://myPSQLInstance:5432/myDatabase
 spring.r2dbc.username=myUsername
 spring.r2dbc.password=myPassword
@@ -65,8 +75,10 @@ spring.r2dbc.password=myPassword
 
 ### Repository
 
+#### Vorher
+
 Am Beispiel einer Student-Entität und einem blockierenden Student-JPA-Repository, das die Datenbankanbindung übernimmt,
-kann das `StudentRepository` wie folgt aussehen:
+kann das `StudentRepository` mit Hilfe eines Interfaces wie folgt definiert werden.
 
 ```java
 package com.example.myapplication.model;
@@ -75,7 +87,6 @@ import java.util.Optional;
 
 public interface StudentRepository {
     Optional<Student> findById(Integer id);
-    Student save(Student student);
 }
 ```
 
@@ -93,6 +104,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StudentJpaRepository extends JpaRepository<Student, Integer>, StudentRepository {}
 ```
+
+#### Nachher
 
 Wollen wir die reaktive Variante verwenden, so kann das `StudentRepository` das `ReactiveCrudRepository`
 als Alternative zum `JpaRepository` erweitern.
