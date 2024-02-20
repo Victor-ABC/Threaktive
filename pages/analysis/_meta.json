@@ -1,7 +1,6 @@
 {
   "introduction": "Einleitung",
   "minimalistic-without-db": "Minimalistisch (ohne Datenbank)",
-  "minimalistic-with-db": "Minimalistisch (mit Datenbank)",
   "average-load-tests": "Durchschnittliche Lasttests",
   "results": "Ergebnisauswertung"
 }
