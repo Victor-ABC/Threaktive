@@ -1,2 +1,139 @@
-# Erfahrungsbericht 
- 
+---
+authorName: Alexander Euler
+authorGithubName: aleeexx
+---
+
+# Erfahrungsbericht
+
+Im Rahmen des Forschungs- und Entwicklungsprojekts 2023/24 `ThreaKtive` an der Münster School of Business[^1]
+(FH Münster) haben wir die Themen `Project Loom` und `Project Reactor` untersucht. Hierfür haben wir uns mit
+den Grundlagen und der Funktionsweise dieser Technologien auseinandergesetzt, Experimente durchgeführt und
+unsere Erfahrungen und Erkenntnisse dokumentiert. Im Folgenden möchten wir diese ausschnittweise darstellen.
+
+## Project Loom[^2]
+
+Project Loom ist ein OpenJDK-Projekt, das sich mit der Verbesserung der Skalierbarkeit und Effizienz von Java-
+Anwendungen beschäftigt. Es zielt darauf ab, die Art und Weise zu verbessern, wie Java-Anwendungen Threads
+verwenden, um die Skalierbarkeit und Effizienz von Java-Anwendungen zu verbessern. Project Loom führt eine
+neue Art von Threads ein, die als Virtual Threads bezeichnet werden. Diese Threads sind leichtgewichtiger
+als herkömmliche Threads und können in großer Anzahl erstellt werden. Sie werden von einem `Scheduler` verwaltet,
+der sie auf eine kleine Anzahl von herkömmlichen Threads abgebildet. Dies ermöglicht es, eine große Anzahl von
+Threads zu erstellen, ohne dass die Leistung des Systems beeinträchtigt wird. Darüber hinaus muss ein Entwickler
+nicht mehr viel beachten. Die Teilnehmer dieses Projekts hatten bereits Erfahrung in der nebenläufigen
+Programmierung in Java, zuvor jedoch noch keine Berührungspunkte mit Virtual Threads. Es muss Java 21 verwendet
+werden und statt der herkömmlichen Platform Threads müssen Virtual Threads verwendet werden. Dies wird bei
+Verwendung von Frameworks häufig per Konfiguration angeboten (exemplarisch gezeigt in [ThreaKtive - Virtual Threads - Spring](/code-examples/virtual-threads/spring))
+und in Fällen, in denen die Threads explizit erstellt werden, muss der Entwickler darauf achten,
+dass Virtual Threads verwendet werden (exemplarisch gezeigt in [ThreaKtive - Virtual Threads - Allgemein](/code-examples/virtual-threads/general)).
+
+### Erfahrungen
+
+Project Loom ist ein sehr interessantes Projekt, das vielversprechende Verbesserungen für die Skalierbarkeit und
+Effizienz von Java-Anwendungen verspricht. Die Idee, leichte Threads zu verwenden, die von einem Scheduler
+verwaltet werden, ist sehr interessant und könnte zu einer signifikanten Verbesserung der Leistung von Java-
+Anwendungen führen. Wir haben einige Experimente mit Project Loom durchgeführt und festgestellt, dass es zum
+einen möglich ist, eine sehr große Anzahl von Threads auf auch Systemen mit begrenzten Ressourcen zu erstellen,
+ohne dass die Leistung des Systems beeinträchtigt wird. Zum anderen haben wir festgestellt, dass die
+Verwendung von Virtual Threads in Java-Anwendungen sehr einfach ist und keine großen Änderungen am
+Code erforderlich sind. Somit sollte auch die Migration von bestehenden, großen Projekten wenig Probleme
+darstellen. Dies ist ein vielversprechendes Ergebnis, das zeigt, dass Project Loom das Potenzial hat, die Art
+und Weise zu verändern, wie Java-Anwendungen - mit hohen Anteil an blockierenden Operationen in der
+nebenläufigen Verarbeitung - Threads zukünftig verwenden werden.
+
+## Project Reactor[^3]
+
+Project Reactor ist ein Open-Source-Framework, das sich mit der Entwicklung reaktiver Anwendungen in Java
+beschäftigt. Es basiert auf dem `Reactive Streams`-Standard[^4] und bietet eine Reihe von Funktionen und
+Werkzeugen, die es ermöglichen, reaktive Anwendungen in Java zu entwickeln. Die Teilnehmer dieses Projekts
+hatten teilweise bereits Erfahrung in der Entwicklung reaktiver Anwendungen in anderen Programmiersprachen
+(z.B. RxJS in TypeScript), jedoch noch keine Erfahrung in der Entwicklung reaktiver Anwendungen in Java, und
+teilweise noch gar keine Berührungspunkte mit reaktiven Anwendungen.
+
+### Erfahrungen
+
+Project Reactor ist ein sehr leistungsfähiges Framework, das es ermöglicht, reaktive Anwendungen in Java zu
+entwickeln. Wir haben einige Experimente mit Project Reactor durchgeführt und festgestellt, dass es deutlich
+schwerer ist bestehenden Code so zu refaktorisieren oder neuen Code so zu schreiben, dass reaktiver, nicht-
+blockierender Code verwendet wird, als Virtual Threads zu verwenden. Dies liegt vor allem daran, dass die
+Entwicklung von reaktivem Code einem anderen Paradigma folgt, als die klassische, imperative Programmierung.
+Es ist notwendig, sich mit den Grundlagen der reaktiven Programmierung vertraut zu machen und die verschiedenen
+Funktionen und Werkzeuge von Project Reactor zu kennen und zu verstehen. Dies erfordert eine gewisse
+Einarbeitungszeit und kann für Entwickler, die bisher nur mit imperativer Programmierung vertraut sind, eine
+Herausforderung darstellen. Besonders, da die reaktive Programmierung in Java nicht so etabliert und die
+Community dahinter dementsprechend recht klein ist.
+
+#### Refaktorisierung
+
+Soll eine bestehende Anwendung reaktiv umgestellt werden, so ist es notwendig, den gesamten Code zu
+refaktorisieren. Dabei fällt als allererstes auf, dass sämtliche Abhängigkeiten gegen andere mit Non-Blocking
+IO ausgetauscht (Siehe [ThreaKtive - Code Beispiele - Reaktive Programmierung - Verwendung mit Spring](/code-examples/reactive-programming/spring)),
+und dass Rückgabetypen von Methoden geändert werden müssen. Statt beispielsweise eines `boolean`-Typs muss
+nun ein `Mono<boolean>` und statt des `List`-Typs muss ein `Flux`-Typ verwendet werden etc. Darüber hinaus
+existiert ein anderes `null`-Handling. Es gibt keine `Optional<T>` mehr, sondern `Mono<T>`. Dies bedeutet,
+dass mit entsprechenden Operatoren (`switchIfEmpty`, `defaultIfEmpty` etc.) gearbeitet werden muss. Außerdem
+unterscheidet sich die Funktionsweise von manchen Operatoren wie z.B. `flatMap` von anderen Frameworks wie bspw.
+RxJS. Es ist also ist notwendig, sich mit den verschiedenen Operatoren und deren Funktionsweise vertraut zu machen
+und den Transfer herzustellen, sollte bereits Vorerfahrung in der Entwicklung reaktiver Anwendungen in anderen
+Programmiersprachen vorhanden sein.
+
+#### Datenbanken - Mapping von Relationen
+
+Darüber hinaus haben wir festgestellt, dass einige Funktionen schnell an ihre Grenzen stoßen. So ist es
+beispielsweise nicht möglich wie mit bekannten ORMs wie JPA, eine Entität samt einer Beziehung zu laden (`1:N`
+oder `N:M`).
+
+##### Beispiel
+
+`ShoppingList <N:M> User`
+
+Eine ShoppingList kann von mehreren Usern geteilt werden und ein User kann zu mehreren ShoppingLists eingeladen
+werden.
+
+Es ist nicht möglich out-of-the-box in einer Abfrage eine ShoppingList mit allen zugehörigen Usern zu laden, wie
+es bei anderen ORMs möglich ist. Es ist notwendig, die ShoppingList und die User in zwei Abfragen zu laden und
+die User dann der ShoppingList zuzuordnen (Siehe Issue auf GitHub[^5]).
+
+In unserem Fall haben wir uns für ein manuelles Mapping von Relationen entschieden (in Anlehnung an das
+Mapping von `1:N` Relationen aus DZone[^6]). Hierfür mussten entsprechende SQL-Abfragen geschrieben werden,
+die die Relationen abbilden, um die Daten anschließend in Entität-Objekte umzuwandeln. Das Entwerfen, die
+Entwicklung und Wartung dieser Mapper ist ein zusätzlicher Aufwand, welcher weitere Komplexität und
+zusätzliche Fehleranfälligkeit mit sich führt.
+
+## Fazit
+
+Beide Projekte haben großes Potenzial, denn beide Projekte konnten in unseren Tests (Siehe [TreaKtive - Messungen - Ergebnisauswertung](/analysis/results))
+eine signifikante Verbesserung der Skalierbarkeit und Effizienz von Java-
+Anwendungen zeigen - in diesem Fall von Spring Microservices bzw. Systemen mt Microservice-Architekturen. Die
+aufgetretenen Probleme bei der Entwicklung reaktiver Anwendungen in Java sind jedoch nicht zu unterschätzen.
+Besonders im Vergleich zu der sehr einfachen Verwendung von Virtual Threads. Durch die Einführung von Virtual
+Threads in Java ist es möglich, dass die Project Reactor an Bedeutung verliert, da die Vorteile von reaktiver
+Programmierung zu Teilen auch durch die Verwendung von Virtual Threads erreicht werden können. Es bleibt
+abzuwarten, wie sich die beiden Projekte weiterentwickeln und ob sie in Zukunft vielleicht sogar gemeinsam
+eingesetzt werden, oder sich einer der beiden Ansätze durchsetzt.
+
+In jedem Fall ist es wichtig, sich mit beiden Projekten vertraut zu machen und die unterschiedlichen Ansätze und
+Funktionsweisen zu verstehen, um die richtige Technologie für die jeweilige Anwendung auswählen zu können.
+
+[^1]:
+    Siehe https://www.fh-muenster.de/msb/,
+    letzter Zugriff am 17.02.2024
+
+[^2]:
+    Siehe https://openjdk.java.net/projects/loom/,
+    letzter Zugriff am 17.02.2024
+
+[^3]:
+    Siehe https://projectreactor.io/,
+    letzter Zugriff am 17.02.2024
+
+[^4]:
+    Siehe https://www.reactive-streams.org/,
+    letzter Zugriff am 17.02.2024
+
+[^5]:
+    Siehe https://github.com/spring-projects/spring-data-r2dbc/issues/356,
+    letzter Zugriff am 17.02.2024
+
+[^6]:
+    Siehe https://dzone.com/articles/you-dont-need-hibernate-with-spring-webflux-and-r2,
+    letzter Zugriff am 17.02.2024
