@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Aleeexx/Threaktive#readme",
   "dependencies": {
+    "@vercel/analytics": "^1.2.1",
     "next": "^13.0.6",
     "nextra": "latest",
     "nextra-theme-docs": "latest",

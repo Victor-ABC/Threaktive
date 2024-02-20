@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import React from "react"
-import "../styles/global.css"
-import { useEffect } from "react"
+import { Analytics } from "@vercel/analytics/react"
 import { Router } from "next/router"
+import React, { useEffect } from "react"
+import "../styles/global.css"
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -40,5 +40,10 @@ export default function App({ Component, pageProps }) {
     })
   }, [])
 
-  return <Component {...pageProps} />
+  return (
+    <>
+      <Analytics />
+      <Component {...pageProps} />
+    </>
+  )
 }
