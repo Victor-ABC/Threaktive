@@ -1,11 +1,13 @@
 # Ergebnisauswertung
 
-Sowohl Reaktiv als auch Virtual Threads performen in unseren “Laborbeispiel“ (Minimalistisch)
-deutlich besser als Platform Threads. (Beide haben den Faktor 35 was die Anzahl an Virtual Users betrifft,
-die gleichzeitig bei gleichbleibender Antwortzeit gehandelt werden können). Reaktiv schafft da
-25-mal mehr maximalen Durchsatz und Virtual Threads 20-mal mehr. Bei gleicher Last verbrauchen
-Virtuelle Threads deutlich mehr Arbeitsspeicher als bei Reaktiv. Umstellung auf Virtual Threads
-ist deutlich einfacher als Reengineering auf Reaktiv. Die Streuung der Antwortzeiten ist bei
-Virtuellen Threads größer, dafür sind sie im Schnitt jedoch schneller als die normale
-Implementierung. Reaktiv bringt weitere Probleme mit sich (schweres Debugging, schwer zu Lesen,
-Entwickler-Fremd, Notwendigkeit reaktiver Bibliotheken…)
+Sowohl die reaktive Version als auch die Version mit virtuellen Threads zeigen in unseren Laborversuchen (in
+minimalistischer Ausführung) eine signifikant verbesserte Leistung im Vergleich zu Plattform-Threads. In Bezug
+auf die Anzahl der virtuellen Benutzer, die simultan mit einer konstanten Antwortzeit verarbeitet werden können,
+zeigen beide Ansätze eine Steigerung um den Faktor 35. Reaktive Threads erzielen eine 25-fache Steigerung des
+maximalen Durchsatzes, während virtuelle Threads eine 20-fache Steigerung aufweisen. Unter gleicher Belastung
+haben virtuelle Threads einen deutlich höheren Arbeitsspeicherverbrauch im Vergleich zu reaktiven Threads. Die
+Umstellung auf virtuelle Threads gestaltet sich merklich einfacher als die Neugestaltung hin zu einem reaktiven
+Ansatz. Die Streuung der Antwortzeiten ist bei virtuellen Threads größer, jedoch ist ihre mittlere Geschwindigkeit
+im Vergleich zur herkömmlichen Implementierung erhöht. Die reaktive Entwicklung von Anwendungen bringen zusätzliche
+Herausforderungen mit sich, wie etwa schwieriges Debugging, eine komplexe Lesbarkeit, Fremdheit für Entwickler
+und die Notwendigkeit reaktiver Bibliotheken oder fehlende Funktionen in bestehenden Bibliotheken.
