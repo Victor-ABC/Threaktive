@@ -72,3 +72,7 @@ pre code .line:hover {
     flex-direction: row;
   }
 }
+
+.footnotes {
+  margin-top: 50px;
+}

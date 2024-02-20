@@ -43,9 +43,9 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <SpeedInsights />
       <Analytics />
       <Component {...pageProps} />
+      <SpeedInsights />
     </>
   )
 }

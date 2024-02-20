@@ -5,13 +5,7 @@
   "eslint.options": {
     "extensions": [".js", ".jsx", ".md", ".mdx", ".ts", ".tsx"]
   },
-  "eslint.validate": [
-    "markdown",
-    "mdx",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "prettier.semi": false
+  "eslint.validate": ["markdown", "mdx", "javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "prettier.semi": false,
+  "prettier.printWidth": 120
 }
