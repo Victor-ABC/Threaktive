@@ -9,7 +9,6 @@ export default function App({ Component, pageProps }) {
     /** Adds line numbers the provided code block. */
     const addLineNumbers = function (codeElement) {
       const lines = codeElement.getElementsByClassName("line")
-      console.log("lines", lines)
 
       for (const [index, line] of [...lines].entries()) {
         const lineNumber = document.createElement("span")

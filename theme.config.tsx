@@ -8,14 +8,14 @@ const config: DocsThemeConfig = {
     link: "https://github.com/Aleeexx/Threaktive",
   },
   docsRepositoryBase: "https://github.com/Aleeexx/Threaktive/tree/main/",
-  banner: {
-    key: "still-wip",
-    text: (
-      <a href="https://github.com/Aleeexx/Threaktive" target="_blank" rel="noreferrer">
-        🧑🏽‍💻 This site is still wip.
-      </a>
-    ),
-  },
+  // banner: {
+  //   key: "still-wip",
+  //   text: (
+  //     <a href="https://github.com/Aleeexx/Threaktive" target="_blank" rel="noreferrer">
+  //       🧑🏽‍💻 This site is still wip.
+  //     </a>
+  //   ),
+  // },
   footer: {
     text: () => {
       return (
