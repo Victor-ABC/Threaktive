@@ -77,6 +77,8 @@ const config: DocsThemeConfig = {
     const { timestamp } = args
     const { authorName, authorGithubName } = useConfig()?.frontMatter ?? {}
 
+    console.log("authorName, authorGithubName, timestamp", authorName, authorGithubName, timestamp)
+
     const isDarkMode = globalThis?.document?.body?.parentElement?.style?.colorScheme === "dark" ?? false
 
     return (
