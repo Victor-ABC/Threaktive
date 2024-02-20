@@ -77,8 +77,7 @@ const config: DocsThemeConfig = {
     const { timestamp } = args
     const { authorName, authorGithubName } = useConfig()?.frontMatter ?? {}
 
-    const isDarkMode =
-      globalThis?.document?.body?.parentElement?.style?.colorScheme === "dark" ?? false
+    const isDarkMode = globalThis?.document?.body?.parentElement?.style?.colorScheme === "dark" ?? false
 
     return (
       <div
@@ -135,9 +134,8 @@ const config: DocsThemeConfig = {
             </div>
           </div>
         )}
-        <p style={{ maxWidth: "50%" }}>
-          Zuletzt aktualisiert am{" "}
-          {new Intl.DateTimeFormat("de", { dateStyle: "long" }).format(timestamp)}
+        <p style={{ maxWidth: authorName && authorGithubName ? "50%" : null }}>
+          Zuletzt aktualisiert am {new Intl.DateTimeFormat("de", { dateStyle: "long" }).format(timestamp)}
         </p>
       </div>
     )
