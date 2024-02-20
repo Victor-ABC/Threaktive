@@ -20,9 +20,9 @@ Insgesamt tragen virtuelle Threads und reaktive Programmierung dazu bei, die Her
 
 ## Virtual Threads – Project Loom 
 
-Wenn es darum geht, Ressourcen effizient zu nutzen, können virtuelle Threads eine bessere Option als herkömmliche Threads sein. Da sie leichtgewichtiger sind als herkömmliche Threads, ermöglichen sie eine höhere Skalierbarkeit und eine effizientere Verwaltung von nebenläufigen Aufgaben. 
-Anwendungen mit vielen gleichzeitigen Operationen: In Szenarien, in denen viele gleichzeitige Operationen stattfinden und eine hohe Nebenläufigkeit erforderlich ist, können virtuelle Threads eine gute Wahl sein. Sie ermöglichen eine optimierte Ausführung paralleler Prozesse vor allem bei Aufgaben mit hohem Anteil an IO-Operationen.
-Microservices-Architekturen: In Umgebungen, in denen Microservices eingesetzt werden, kann die Verwendung von virtuellen Threads dazu beitragen, die Effizienz und Skalierbarkeit der einzelnen Dienste zu verbessern, ohne dabei die gesamte Anwendungsleistung zu beeinträchtigen.[^1]
+Bei der Effizienzsteigerung von Ressourcennutzung erweisen sich virtuelle Threads im Vergleich zu den herkömmlichen Platform Threads als vorteilhaft. Durch ihre Leichtgewichtigkeit ermöglichen sie eine verbesserte Skalierbarkeit und effizientere Verwaltung von nebenläufigen Aufgaben. 
+Insbesondere in Szenarien mit zahlreichen blockierenden Operationen bieten virtuelle Threads eine vielversprechende Lösung. Ihr Einsatz ermöglicht eine gezielte Bearbeitung der Wartezeiten. Im Gegensatz zu herkömmlichen Plattform-Threads wird bei virtuellen Threads für jede Aufgabe ein neuer virtueller Thread gestartet. 
+In Microservices-Architekturen kann die Integration virtueller Threads dazu beitragen, die Effizienz und Skalierbarkeit der einzelnen Dienste zu verbessern, ohne dabei die Gesamtleistung der Anwendung zu beeinträchtigen. [^1]
 
 ## Reaktive Programmierung – Project Reactor 
 
