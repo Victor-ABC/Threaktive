@@ -5,7 +5,7 @@ authorGithubName: aleeexx
 
 ## Spring
 
-### Vor Version 3.2 [^1]
+### Vor Version 3.2[^1]
 
 Um Virtual Threads vor Spring 3.2 zu aktivieren, muss die Main-Klasse der Anwendung
 (Enthält Aufruf von `SpringApplication#run`) angepasst werden. Hierfür werden zwei Methodenaufrufe benötigt.
@@ -36,7 +36,7 @@ Zum einen, um Spring mitzuteilen, dass jeder Aufruf der Funktionen, welche mit d
 einen eigenen Virtual Thread erhält. Zum anderen, um Tomcat mitzuteilen, dass pro eingehendem Request ein neuer
 Virtual Thread erstellt werden soll.
 
-### Seit Version 3.2 [^2]
+### Seit Version 3.2[^2]
 
 Um virtuelle Threads ab Spring 3.2 zu aktivieren, muss lediglich eine Eigenschaft in der
 Datei `application.yml` beziehungsweise `application.properties` festgelegt werden:

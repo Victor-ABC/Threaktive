@@ -1,16 +1,24 @@
 import Link from "next/link"
 import { Callout } from "nextra-theme-docs"
 import SoundPlayer from "../components/sound-player/sound-player"
+import ScalableImage from "../components/scalable-image/scalable-image"
 
 import styles from "./index.module.css"
 
 # ThreaKtive
+
 <div className={styles["word-type"]}>
-    <em><strong>Nomen</strong> /θreˈæk.tɪv/</em> <SoundPlayer></SoundPlayer> <br></br>
+  <em>
+    <strong>Nomen</strong> /θreˈæk.tɪv/
+  </em>
+  <SoundPlayer></SoundPlayer> <br></br>
 </div>
 <div className={styles.description}>
-    <em>Wortneuschöpfung und Kombination der Begriffe &quot;Thread&quot; und &quot;Reaktiv&quot; sowie &quot;Reactive&quot;.</em><br></br>
-    <em>Entstanden im Zuge der Namensfindung für das Forschungs- und Entwicklungsprojekts 2023/2024 des Masterstudiengangs der Wirtschaftsinformatik an der FH Münster.</em>
+  <em>
+    Wortneuschöpfung und Kombination der Begriffe &quot;Thread&quot; und &quot;Reaktiv&quot; sowie &quot;Reactive&quot;.
+    Entstanden im Zuge der Namensfindung für das Forschungs- und Entwicklungsprojekts 2023/2024 des Masterstudiengangs
+    der Wirtschaftsinformatik an der FH Münster.
+  </em>
 </div>
 
 Virtuelle Threads und reaktive Programmierung mit Java spielen eine entscheidende Rolle in der modernen Softwareentwicklung, da sie innovative Lösungen für Herausforderungen bieten, die sich aus der steigenden Komplexität und Dynamik heutiger Anwendungen ergeben. Diese Technologien ermöglichen eine effizientere Ressourcennutzung, verbesserte Skalierbarkeit und eine reaktionsfähigere Handhabung von parallelen Aufgaben.
@@ -18,32 +26,30 @@ Virtuelle Threads bieten eine leichtgewichtige Möglichkeit, nebenläufige Opera
 Die reaktive Programmierung ergänzt diesen Ansatz, indem sie einen proaktiven und asynchronen Programmierstil fördert. Anstatt auf Echtzeitereignisse zu warten, können Anwendungen auf Ereignisse reagieren, sobald sie auftreten. Dies führt zu besserer Performance, erhöhter Robustheit und einer insgesamt verbesserten Benutzererfahrung. Dies ist besonders wichtig in Bereichen wie Cloud-Computing, Microservices-Architekturen und IoT (Internet of Things), wo die Anforderungen an Flexibilität und Effizienz besonders hoch sind.
 Insgesamt tragen virtuelle Threads und reaktive Programmierung dazu bei, die Herausforderungen der heutigen Softwareentwicklung zu bewältigen und ermöglichen es Entwicklern, leistungsstarke Anwendungen zu erstellen, die den Anforderungen einer zunehmend digitalen und vernetzten Welt gerecht werden.
 
-## Virtual Threads – Project Loom 
+## Virtual Threads – Project Loom
 
-Bei der Effizienzsteigerung von Ressourcennutzung erweisen sich virtuelle Threads im Vergleich zu den herkömmlichen Platform Threads als vorteilhaft. Durch ihre Leichtgewichtigkeit ermöglichen sie eine verbesserte Skalierbarkeit und effizientere Verwaltung von nebenläufigen Aufgaben. 
-Insbesondere in Szenarien mit zahlreichen blockierenden Operationen bieten virtuelle Threads eine vielversprechende Lösung. Ihr Einsatz ermöglicht eine gezielte Bearbeitung der Wartezeiten. Im Gegensatz zu herkömmlichen Plattform-Threads wird bei virtuellen Threads für jede Aufgabe ein neuer virtueller Thread gestartet. 
-In Microservices-Architekturen kann die Integration virtueller Threads dazu beitragen, die Effizienz und Skalierbarkeit der einzelnen Dienste zu verbessern, ohne dabei die Gesamtleistung der Anwendung zu beeinträchtigen. [^1]
+Bei der Effizienzsteigerung von Ressourcennutzung erweisen sich virtuelle Threads im Vergleich zu den herkömmlichen Platform Threads als vorteilhaft. Durch ihre Leichtgewichtigkeit ermöglichen sie eine verbesserte Skalierbarkeit und effizientere Verwaltung von nebenläufigen Aufgaben.
+Insbesondere in Szenarien mit zahlreichen blockierenden Operationen bieten virtuelle Threads eine vielversprechende Lösung. Ihr Einsatz ermöglicht eine gezielte Bearbeitung der Wartezeiten. Im Gegensatz zu herkömmlichen Plattform-Threads wird bei virtuellen Threads für jede Aufgabe ein neuer virtueller Thread gestartet.
+In Microservices-Architekturen kann die Integration virtueller Threads dazu beitragen, die Effizienz und Skalierbarkeit der einzelnen Dienste zu verbessern, ohne dabei die Gesamtleistung der Anwendung zu beeinträchtigen.[^1]
 
-## Reaktive Programmierung – Project Reactor 
+## Reaktive Programmierung – Project Reactor
 
 Die reaktive Entwicklung in Java mit Project Reactor basiert auf dem Konzept der reaktiven Programmierung, das darauf abzielt, asynchrone und nicht blockierende Operationen effizient zu verarbeiten. Reactor ist eine Open Source Bibliothek für reaktive Programmierung in Java, die auf dem Reactive Streams-Standard aufbaut.
 Asynchrone Verarbeitung: Wenn eine Anwendung eine große Menge asynchroner und nicht blockierender Operationen behandeln muss, ist die reaktive Java-Entwicklung geeignet. Sie ermöglicht eine effiziente Verarbeitung von Echtzeitereignissen und verbessert die Gesamtreaktionsfähigkeit der Anwendung.
 Echtzeitkommunikation: In Anwendungen, die Echtzeitkommunikation erfordern, wie beispielsweise in Chat-Anwendungen oder Echtzeit-Dashboards, bietet die reaktive Programmierung eine natürliche Lösung. Durch die reaktive Verarbeitung von Ereignissen können solche Anwendungen schnell und effizient auf Benutzerinteraktionen reagieren.
-Skalierbare Webanwendungen: Bei der Entwicklung von skalierbaren Webanwendungen, die viele gleichzeitige Verbindungen und Echtzeitaktualisierungen unterstützen müssen, kann die reaktive Programmierung dazu beitragen, die Skalierbarkeit zu verbessern und die Latenzzeiten zu minimieren. [^2]
+Skalierbare Webanwendungen: Bei der Entwicklung von skalierbaren Webanwendungen, die viele gleichzeitige Verbindungen und Echtzeitaktualisierungen unterstützen müssen, kann die reaktive Programmierung dazu beitragen, die Skalierbarkeit zu verbessern und die Latenzzeiten zu minimieren.[^2]
 
 ## Motivation
 
 Virtuelle Threads und reaktive Java-Entwicklung bieten innovative Lösungen für moderne Softwareentwicklung. Virtuelle Threads ermöglichen eine ressourceneffiziente Nebenläufigkeit, optimierte Skalierbarkeit und effiziente Verwaltung paralleler Aufgaben. Auf der anderen Seite ermöglicht die reaktive Programmierung eine asynchrone Verarbeitung, verbesserte Echtzeitreaktionen und optimale Handhabung von Echtzeitereignissen.
 Trotz der zahlreichen Vorteile von virtuellen Threads und reaktiver Java-Entwicklung gibt es auch potenzielle Herausforderungen. Bei virtuellen Threads besteht die Gefahr von Thread-Überlastung, insbesondere wenn nicht sorgfältig mit der Ressourcenverwaltung umgegangen wird. Eine unkontrollierte Erzeugung virtueller Threads kann zu erhöhtem Speicherverbrauch führen. Bei der reaktiven Java-Entwicklung besteht die Herausforderung darin, dass der asynchrone Code komplexer sein kann und eine gewisse Lernkurve für Entwickler mit sich bringt. Zudem kann eine übermäßige Verwendung von asynchroner Programmierung zu schwer nachvollziehbarem und wartungsaufwändigem Code führen. Eine ausgewogene Abwägung und sorgfältige Implementierung sind daher entscheidend, um den optimalen Nutzen aus diesen Technologien zu ziehen und potenzielle Nachteile zu minimieren.
 
-###
-
-[^1]:
-    Siehe https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html,
-    letzter Zugriff am 11.01.2024
-[^2]:
-    Siehe https://projectreactor.io/,
-    letzter Zugriff am 20.01.2024
+<ScalableImage
+  maxHeight={500}
+  src="/images/poster.png"
+  alt="Poster"
+  description="Abstract-Poster - Quelle: Eigene Anfertigung"
+/>
 
 ## Autoren
 
@@ -99,4 +105,13 @@ Trotz der zahlreichen Vorteile von virtuellen Threads und reaktiver Java-Entwick
             </div>
         </Callout>
     </Link>
+
 </div>
+
+[^1]:
+    Siehe https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html,
+    letzter Zugriff am 11.01.2024
+
+[^2]:
+    Siehe https://projectreactor.io/,
+    letzter Zugriff am 20.01.2024
