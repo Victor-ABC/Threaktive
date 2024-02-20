@@ -3,7 +3,6 @@ import { Analytics } from "@vercel/analytics/react"
 import { Router } from "next/router"
 import React, { useEffect } from "react"
 import "../styles/global.css"
-import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -45,7 +44,6 @@ export default function App({ Component, pageProps }) {
     <>
       <Analytics />
       <Component {...pageProps} />
-      <SpeedInsights />
     </>
   )
 }
