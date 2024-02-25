@@ -32,15 +32,15 @@ Wenn die Aufgabe ausgeführt wird (nachdem die Methode run ausgeführt wurde) un
 und auf dessen Antwort wartet, wird auf dem Object `Continuation` die Methode `yield()` aufgerufen.
 In diesem Schritt werden die Daten aus dem Stack (Informationen zu der aktuellen Aufgabe, Quellcode und
 deren Ausführungsstand etc.) in dem Heap-Speicher persistiert und der virtuelle Thread wird vom Platform Thread
-gelöst (`Unmounting`) und befindet sich nun in der Queue `"unmounted blocked"`. Dort wartet der virtuelle Threads so lange,
+gelöst (`Unmounting`) und befindet sich nun in der Queue `"unmounted blocked"`. Dort wartet der virtuelle Thread so lange,
 bis ein Trigger ausgelöst wird, dass die Antwort von dem blockierenden Aufruf vorhanden ist.
 Der Trigger löst die Methode `run()` vom Objekt `Continuation` aus und dann wird der Stack vom virtuellen Thread aus dem Heap geladen.
 Nach dieser Prozedur wird der virtuelle Thread in die Queue `"unmounted ready"` verschoben.
-Das ist der Kreislauf der virtuellen Threads, dieser wird von der JVM verwaltet. Das ist ein erheblicher Vorteil
-gegenüber den Platform Threads, dieser werden vom Betriebssytem verwaltet. Wenn ein Platform Thread erstellt werden soll,
+Das ist der Kreislauf der virtuellen Threads, dieser wird von der JVM (Java Virtual Machine) verwaltet. Das ist ein erheblicher Vorteil
+gegenüber den Platform Threads, diese werden vom Betriebssytem verwaltet. Wenn ein Platform Thread erstellt werden soll,
 muss ein Systemaufruf ans Betriebssystem gestellt werden. Dieser Aufruf ist sehr kostenintensiv, das fällt beim virtuellen Thread weg.  
 Das Objekt `Continuation` ist in einer Low-Level-API die von einem Entwickler standardmäßig nicht verwendet wird,
-diese kann aber wie im nachfolgenden Java-Code zum Experimentieren und besserem verstehen verwendet werden.
+diese kann aber wie im nachfolgenden Java-Code zum Experimentieren und besserem Verstehen verwendet werden.
 
 ```java
 var scope = new ContinuationScope("C1");
@@ -80,7 +80,7 @@ Stelle fortgesetzt, an welcher diese pausiert wurde. Die Ausgabe ist `"End C1"`.
 Dieses Vorgehen ist die Art und Weise, wie blockierende Operationen von der JVM verarbeitet werden.
 
 Ein direkter Vergleich zwischen Platform Threads und virtuellen Threads ist hier: [Virtual Threads vs. Platform Threads](/virtual-threads/comparison) zu sehen. Hier wird auch der zeitliche Faktor betrachtet.
-Eine Analogie um den Unterschied zwischen Platform Threads und Virtuellen Threads besser zu verstehen, ist in diesem Tutorial zu sehen.
+Eine Analogie um den Unterschied zwischen Platform Threads und virtuellen Threads besser zu verstehen, ist in diesem Tutorial (Youtube-Video) zu sehen.
 
 <div className="box-center">
   <iframe
