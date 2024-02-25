@@ -12,14 +12,14 @@ wo die Unterschiede und dementsprechend die Vor- und Nachteile dieser beiden Ver
 
 ## Allgemein[^1] [^2]
 
-Für einen Java-Platform Thread wird ein Betriebssystem Thread verwendet, dass Scheduling wird
-vom Betriebssystem durchgeführt. Die Zuordnung zwischen dem Platform Threads und dem Betriebssystem
+Für einen Java Platform Thread wird ein Betriebssystem Thread verwendet, dass Scheduling wird
+vom Betriebssystem durchgeführt. Die Zuordnung zwischen dem Platform Thread und dem Betriebssystem
 Thread besteht über die gesamte Lebensdauer des Platform Threads. Ein Betriebssystem Thread ist
 nicht leichtgewichtet und ist durch den Arbeitsspeicher in der Anzahl limitiert. Die Startzeit
-liegt bei ca. 1ms und der Aufruf wird per Systemaufruf ans Betriebssystem adressiert. Die maximale
+liegt bei ca. 1ms und der Aufruf wird per Systemaufruf von der JVM (Java Virtual Machine) an das Betriebssystem adressiert. Die maximale
 Größe des Stacks in der Default-Einstellung liegt bei 2 MB pro Betriebssystem Thread. Der Kontextwechsel
 ist der Vorgang, bei dem die Bearbeitung des aktuellen Threads unterbrochen wird und zu einem anderen
-Thread zur Bearbeitung gewechselt ist. Diese Zeit liegt ca. bei 100μs. In der Abbildung 1 ist das „Mapping“
+Thread zur Bearbeitung gewechselt wird. Diese Zeit liegt ca. bei 100μs. In der Abbildung 1 ist das „Mapping“
 der Platform Threads zu den Betriebssystem Threads zu sehen.
 
 <ScalableImage
