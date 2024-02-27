@@ -5,10 +5,16 @@ authorGithubName: aleeexx
 
 ## Spring
 
+Spring ist ein Open-Source-Framework für die Entwicklung von Java-Anwendungen, häufig für Web-Anwendungen.
+Es bietet umfassende Unterstützung für die Entwicklung von Enterprise-Anwendungen und erleichtert die
+Implementierung von Geschäftslogik. Spring bietet eine Vielzahl von Modulen, die für verschiedene
+Anwendungsfälle verwendet werden können, wie z.B. Spring Boot, Spring Data, Spring Security, Spring Cloud und
+viele mehr.
+
 ### Vor Version 3.2[^1]
 
 Um Virtual Threads vor Spring 3.2 zu aktivieren, muss die Main-Klasse der Anwendung
-(Enthält Aufruf von `SpringApplication#run`) angepasst werden. Hierfür werden zwei Methodenaufrufe benötigt.
+(enthält Aufruf von `SpringApplication#run`) angepasst werden. Hierfür werden zwei Methodenaufrufe benötigt.
 
 ```java
 @SpringBootApplication
@@ -35,6 +41,10 @@ public class GatewayApplication {
 Zum einen, um Spring mitzuteilen, dass jeder Aufruf der Funktionen, welche mit der `@Async` Annotation annotiert sind,
 einen eigenen Virtual Thread erhält. Zum anderen, um Tomcat mitzuteilen, dass pro eingehendem Request ein neuer
 Virtual Thread erstellt werden soll.
+
+Einerseits dienen diese Methoden dazu, Spring zu informieren, dass jede Ausführung der Funktionen, die mit der
+@Async-Annotation versehen sind, einen dedizierten virtuellen Thread erhalten soll. Andererseits soll Tomcat darüber
+informiert werden, dass für jeden eingehenden Request ein neuer virtueller Thread erzeugt werden soll.
 
 ### Seit Version 3.2[^2]
 

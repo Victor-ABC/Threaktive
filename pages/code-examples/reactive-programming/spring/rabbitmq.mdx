@@ -65,8 +65,8 @@ spring.rabbitmq.password=guest
 
 ### Sender
 
-Um Events zu versenden lag im Beispielprojekt folgender Code vor. Sobald sich ein User im
-User-Mircoservice registriert, wurde ein UserRegisteredEvent versendet.
+Um Events zu versenden, lag im Beispielprojekt folgender Code vor. Sobald sich ein User im
+User-Microservice registriert, wurde ein UserRegisteredEvent versendet.
 Ein blockierender EventPublisher wurde in einem Service verwendet, um diese Messages zu versenden.
 
 ```java

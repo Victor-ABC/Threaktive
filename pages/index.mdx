@@ -44,6 +44,21 @@ Skalierbare Webanwendungen: Bei der Entwicklung von skalierbaren Webanwendungen,
 Virtuelle Threads und reaktive Java-Entwicklung bieten innovative Lösungen für moderne Softwareentwicklung. Virtuelle Threads ermöglichen eine ressourceneffiziente Nebenläufigkeit, optimierte Skalierbarkeit und effiziente Verwaltung paralleler Aufgaben. Auf der anderen Seite ermöglicht die reaktive Programmierung eine asynchrone Verarbeitung, verbesserte Echtzeitreaktionen und optimale Handhabung von Echtzeitereignissen.
 Trotz der zahlreichen Vorteile von virtuellen Threads und reaktiver Java-Entwicklung gibt es auch potenzielle Herausforderungen. Bei virtuellen Threads besteht die Gefahr von Thread-Überlastung, insbesondere wenn nicht sorgfältig mit der Ressourcenverwaltung umgegangen wird. Eine unkontrollierte Erzeugung virtueller Threads kann zu erhöhtem Speicherverbrauch führen. Bei der reaktiven Java-Entwicklung besteht die Herausforderung darin, dass der asynchrone Code komplexer sein kann und eine gewisse Lernkurve für Entwickler mit sich bringt. Zudem kann eine übermäßige Verwendung von asynchroner Programmierung zu schwer nachvollziehbarem und wartungsaufwändigem Code führen. Eine ausgewogene Abwägung und sorgfältige Implementierung sind daher entscheidend, um den optimalen Nutzen aus diesen Technologien zu ziehen und potenzielle Nachteile zu minimieren.
 
+## Vorgehen
+
+Um die Vorteile und Herausforderungen von virtuellen Threads und reaktiver Java-Entwicklung zu untersuchen,
+beide Ansätze in der Praxis zu evaluieren und miteinander zu vergleichen, wird in diesem Projekt folgendes
+Vorgehen verfolgt:
+
+- Einarbeitung in die reaktive Entwicklung und virtuelle Threads
+- Analyse der bestehenden Möglichkeiten mit
+  Projekt Reactor für die reaktive Entwicklung und Project Loom für virtuelle Threads
+- Umstellung eines Java-Backends (Beispiel-Anwendung) auf beide Varianten
+- Entwicklung von kleineren Beispiel-Anwendungen, für detaillierte Analyse und Vergleich
+- Durchführung von Lasttests zur Bewertung der Performance der Ansätze
+
+## Abstract Poster
+
 <ScalableImage
   maxHeight={500}
   src="/images/poster.png"

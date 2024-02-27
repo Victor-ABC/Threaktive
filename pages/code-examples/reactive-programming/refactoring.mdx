@@ -6,7 +6,7 @@ authorGithubName: aleeexx
 ## Refaktorisierung von imperativem Code
 
 Im Zuge der Messungen wurde das auf den anderen Seiten bereits genannte Praxisbeispiel, welches im imperativen Paradigma
-sequentiell entwickelt wurde, einer Refaktorisierung unterzogen, um dieselbe Logik mit Hilfe
+sequentiell entwickelt wurde, einer Refaktorisierung unterzogen, um dieselbe Logik mithilfe
 des reaktiven Paradigmas zu implementieren. Dies kann an folgendem Beispiel nachvollzogen werden:
 Eine Methode `getShoppingList` – aus einem Microservice des oben genannten größeren Beispiels –
 welche eine E-Mail-Adresse als Parameter erhält und anhand dessen die zugehörige ShoppingList
@@ -41,7 +41,7 @@ Im Falle des Vorhandenseins einer `User`-Instanz wird daraufhin der Versuch unte
 anhand der ID des Users eine Datensatzreihe der `ShoppingList`-Entität in der Datenbank aufzufinden.
 In Analogie zur zuvor beleuchteten Logik bezüglich des Users erfolgt eine Überprüfung,
 ob eine mit dem Benutzer verknüpfte `ShoppingList` existiert. Falls dem nicht so ist, wird ebenfalls
-ein `Log`-Eintrag generiert, und erneut eine `ResourceNotFoundException` ausgelöst. Im gegenteiligen
+ein `Log`-Eintrag generiert und erneut eine `ResourceNotFoundException` ausgelöst. Im gegenteiligen
 Szenario wird die `ShoppingList` abschließend von der Methode zurückgegeben.
 
 ```java

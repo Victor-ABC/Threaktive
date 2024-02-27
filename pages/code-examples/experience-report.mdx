@@ -69,7 +69,8 @@ refaktorisieren. Dabei fällt als allererstes auf, dass sämtliche Abhängigkeit
 IO ausgetauscht (Siehe [ThreaKtive - Code Beispiele - Reaktive Programmierung - Verwendung mit Spring](/code-examples/reactive-programming/spring)),
 und dass Rückgabetypen von Methoden geändert werden müssen. Statt beispielsweise eines `boolean`-Typs muss
 nun ein `Mono<boolean>` und statt des `List`-Typs muss ein `Flux`-Typ verwendet werden etc. Darüber hinaus
-existiert ein anderes `null`-Handling. Es gibt keine `Optional<T>` mehr, sondern `Mono<T>`. Dies bedeutet,
+existiert ein anderes `null`-Handling. Es gibt keine `Optional<T>` mehr, sondern `Mono<T>`, welches auch ein
+`Mono.empty()` emittieren kann. Dies bedeutet,
 dass mit entsprechenden Operatoren (`switchIfEmpty`, `defaultIfEmpty` etc.) gearbeitet werden muss. Außerdem
 unterscheidet sich die Funktionsweise von manchen Operatoren wie z.B. `flatMap` von anderen Frameworks wie bspw.
 RxJS. Es ist also ist notwendig, sich mit den verschiedenen Operatoren und deren Funktionsweise vertraut zu machen

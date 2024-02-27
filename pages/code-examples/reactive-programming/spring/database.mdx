@@ -7,7 +7,7 @@ authorGithubName: aleeexx
 
 ## Abhängigkeiten
 
-Üblicherweise verwenden Spring Anwendungen einen Datenbank, um Daten zu persistieren. Soll die herkömmliche,
+Üblicherweise verwenden Spring Anwendungen eine Datenbank, um Daten zu persistieren. Soll die herkömmliche,
 blockierende Variante der Datenbankanbindung verwendet werden, so kann in einer Spring Boot Anwendung das
 `spring-boot-starter-data-jpa`-Starterpaket verwendet werden. Darüber hinaus wird ein Treiber für die
 verwendete Datenbank benötigt, in diesem Fall PostgreSQL.
@@ -78,7 +78,7 @@ spring.r2dbc.password=myPassword
 #### Vorher
 
 Am Beispiel einer Student-Entität und einem blockierenden Student-JPA-Repository, das die Datenbankanbindung übernimmt,
-kann das `StudentRepository` mit Hilfe eines Interfaces wie folgt definiert werden.
+kann das `StudentRepository` mithilfe eines Interfaces wie folgt definiert werden.
 
 ```java
 package com.example.myapplication.model;
